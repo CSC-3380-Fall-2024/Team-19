@@ -1,0 +1,4 @@
+/backend/db.sqlite3
+*.xml
+*.iml
+.idea
