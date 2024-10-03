@@ -14,33 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class CustomerSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = Customer
-        fields = "__all__"
-
-    def create(self, validated_data):
-        user_data = validated_data.pop('user')
-        user = User.objects.create_user(**user_data)
-        user.role = User.Role.CUSTOMER
-        user.save()
-        customer = Customer.objects.create(user=user, **validated_data)
-        return customer
 
 
-class BusinessSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
 
-    class Meta:
-        model = Business
-        fields = "__all__"
-
-    def create(self, validated_data):
-        user_data = validated_data.pop('user')
-        user = User.objects.create_user(**user_data)
-        user.role = User.Role.BUSINESS
-        user.save()
-        business = Business.objects.create(user=user, **validated_data)
-        return business

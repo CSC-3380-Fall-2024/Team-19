@@ -17,20 +17,9 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         if not self.pk:
             self.role = self.base_role
-            return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
-#Customer Database Model
-class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    preferences = models.JSONField(default=dict, blank=True, null=True)
 
-#Business Database Model
-class Business(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    business_name = models.CharField(max_length=255)
-    business_description = models.TextField()
-    business_phone_number = models.CharField(max_length=15)
-    address = models.CharField(max_length=255)
-    website_url = models.URLField(blank=True, null=True)
+
 
 
