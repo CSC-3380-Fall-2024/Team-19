@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from authentication.serializers import  UserSerializer
+from authentication.serializers import UserSerializer
 from authentication.models import User
 from .models import *
 
-
+from activity.models import Activity
 
 
 class BusinessSerializer(serializers.ModelSerializer):
@@ -20,3 +20,6 @@ class BusinessSerializer(serializers.ModelSerializer):
         user.save()
         business = BusinessProfile.objects.create(user=user, **validated_data)
         return business
+
+
+

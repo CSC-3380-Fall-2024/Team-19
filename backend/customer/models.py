@@ -5,3 +5,7 @@ from django.db import models
 class CustomerProfile(models.Model):
     user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
     preferences = models.JSONField(default=dict, blank=True, null=True)
+
+
+    def __str__(self):
+        return self.user.username

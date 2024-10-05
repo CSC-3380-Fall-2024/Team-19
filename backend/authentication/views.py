@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .serializers import *
 from customer.serializers import CustomerSerializer
@@ -21,9 +21,14 @@ class CustomerSignUpView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
 
-
 class BusinessSignUpView(generics.CreateAPIView):
     serializer_class = BusinessSerializer
     queryset = BusinessProfile.objects.all()
+    permission_classes = [AllowAny]
+
+
+class ListBusinessesView(generics.ListAPIView):
+    serializer_class = CustomerSerializer
+    queryset = CustomerProfile.objects.all()
     permission_classes = [AllowAny]
 
