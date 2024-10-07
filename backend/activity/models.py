@@ -4,7 +4,7 @@ from business.models import BusinessProfile
 # Create your models here.
 
 class Activity(models.Model):
-    business = models.ForeignKey(BusinessProfile, on_delete=models.CASCADE)
+    business = models.ForeignKey(BusinessProfile, on_delete=models.CASCADE, related_name='activities')
     activity_name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=5, decimal_places=2)

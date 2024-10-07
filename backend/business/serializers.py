@@ -5,9 +5,12 @@ from .models import *
 
 from activity.models import Activity
 
+from activity.serializer import ActivitySerializer
+
 
 class BusinessSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    activities = ActivitySerializer(many=True, read_only=True)
 
     class Meta:
         model = BusinessProfile

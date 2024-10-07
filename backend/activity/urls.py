@@ -6,6 +6,8 @@ urlpatterns = [
 
     path("add", AddActivity.as_view(), name="add_activity"),
 
+    path("list", ListActivity.as_view(), name="list_activity"),
+
     path("delete/<int:pk>", DeleteActivity.as_view(), name="delete_activity"),
 
 

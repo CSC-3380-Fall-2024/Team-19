@@ -18,6 +18,10 @@ class AddActivity(generics.CreateAPIView):
         user = BusinessProfile.objects.get(user=self.request.user)
         serializer.save(business=user)
 
+class ListActivity(generics.ListAPIView):
+    serializer_class = ActivitySerializer
+    queryset = Activity.objects.all()
+    permission_classes = [AllowAny]
 class DeleteActivity(generics.RetrieveDestroyAPIView):
     serializer_class = ActivitySerializer
     queryset = Activity.objects.all()
