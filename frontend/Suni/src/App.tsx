@@ -7,7 +7,6 @@ import cloudBackground from './assets/backgrounds/clouds.png';
 
 import './global.css'
 
-
 function App() {
 
   return (
