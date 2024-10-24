@@ -1,7 +1,8 @@
 //import Header from './Header.tsx'
+//import Footer from './Footer.tsx'
 import Navbar from './Navbar.tsx'
 import Form from './Form.tsx'
-import Footer from './Footer.tsx'
+import PopOut from './PopOut.tsx'
 
 import cloudBackground from './assets/backgrounds/clouds.png';
 
@@ -42,13 +43,13 @@ function App() {
         
         {Component}
 
-        <Form />
-        <Footer />
       </section>
     </>
   );
 }
 
 //<Header />
+// <Form />
+//<Footer /> 
 
 export default App

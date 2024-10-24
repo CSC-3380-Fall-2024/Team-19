@@ -73,8 +73,8 @@ nav li.hover {
 /*Background End*/
 
 
-/* Forms Start */
-.form{
+/* Pop Out Start */
+.pop-out{
   border: 1px solid hsl(0, 0%, 80%);
   border-radius: 10px;
   box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
@@ -84,21 +84,23 @@ nav li.hover {
   max-width: 250px;
   display: inline-block;
 }
-.form .form-image {
+.pop-out .pop-out-image {
   max-width: 60%;
   height: auto;
   border-radius: 50%;
   margin-bottom: 10px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.form .form-title {
+.pop-out .pop-out-title {
   font-family: arial, sans-serif;
   margin: 0;
   color: hsl(0, 0%, 20%);
 }
 
-.form .form-text {
+.pop-out .pop-out-text {
   font-family: arial, sans-serif;
   COLOR: HSL(0,0%,30%);
 }
-/*Forms End*/
+/*Pop Out End*/
