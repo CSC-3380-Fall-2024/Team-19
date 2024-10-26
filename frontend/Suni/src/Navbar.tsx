@@ -10,23 +10,42 @@ function Navbar() {
               </li>
               <li>
                 <button className="nav-button">
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </button>
               </li>
               <li>
                 <button className="nav-button">
-                     <a href="#">Iteneraries</a>
+                     <a href="/quizPage">Quiz</a>
                 </button>  
               </li>
               <li>
                 <button className="nav-button">
-                    <a href="#">About</a>
+                    <a href="/calendarPage">Calendar</a>
                 </button>
+              </li>
+              <li>
+                <button className="nav-button">
+                     <a href="/businessAppPage">BusinessApp</a>
+                </button>  
               </li>
             </ul>
           </nav>
         </>
     );
   }
+
+
+  // function CustomLink ({href, children, ...props}){
+  //   const path = window.location.pathname
+
+  //   return (
+  //     <li>
+  //       <a href={href}>{children}</a>
+  //     </li>
+      
+  //   )
+  // }
+
+
   
   export default Navbar
