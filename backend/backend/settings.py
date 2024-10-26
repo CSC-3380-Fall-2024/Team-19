@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "business",
     "corsheaders",
     "activity",
+    "day",
+    # "itinerary",
 
 
 ]
