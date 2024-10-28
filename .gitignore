@@ -1,4 +1,5 @@
 /backend/db.sqlite3
 *.xml
 *.iml
+*.pyc
 .idea
