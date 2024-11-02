@@ -79,10 +79,9 @@ const BusinessForm = () => {
     if (validateForm()) {
       setIsSubmitting(true);
       try {
-        // simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // API call here
         console.log('Form submitted:', formData);
-        alert('Form submitted successfully!');
+
         // reset form
         setFormData({
           businessName: '',
@@ -93,7 +92,6 @@ const BusinessForm = () => {
         });
       } catch (error) {
         console.error('Submission error:', error);
-        alert('An error occurred while submitting the form');
       } finally {
         setIsSubmitting(false);
       }
