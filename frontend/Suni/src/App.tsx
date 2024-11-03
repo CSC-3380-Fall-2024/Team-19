@@ -1,8 +1,8 @@
 //import Header from './Header.tsx'
 //import Footer from './Footer.tsx'
 import Navbar from './Navbar.tsx'
-import Form from './Form.tsx'
-import PopOut from './PopOut.tsx'
+//import Form from './Form.tsx'
+//import PopOut from './PopOut.tsx'
 
 import cloudBackground from './assets/backgrounds/clouds.png';
 
