@@ -1,13 +1,12 @@
 import PopOut from '../PopOut.tsx'
+import Quiz from '../Quiz.tsx'
 
 function QuizPage() {
     return (
-        <>
-        <div>
-          <h3>Quiz Paget</h3>
-        </div>
-
-      <PopOut />
+      <>
+        <h3>Quiz Page</h3>
+        <Quiz/>
+        <PopOut />
       </>
     );
   }

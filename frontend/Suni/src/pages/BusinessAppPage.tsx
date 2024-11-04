@@ -1,12 +1,13 @@
-import Form from '../Form.tsx'
+import BusinessForm from '../Form.tsx';
+
 
 function BusinessApp() {
     return (
         <>
       <div>
         <h3>Bus App</h3>
-        <Form/>
-        <Form/>
+        <BusinessForm/>
+        
       </div>
       </>
     );
