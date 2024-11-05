@@ -2,3 +2,7 @@ Django~=5.1.1
 djangorestframework-simplejwt~=5.3.1
 djangorestframework~=3.15.2
 django-cors-headers~=4.4.0
+django-storages~=1.14.4
+boto3~=1.35.54
+botocore~=1.35.54
+pillow~=11.0.0
