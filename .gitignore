@@ -1,6 +1,10 @@
 /backend/db.sqlite3
 *.xml
 *.iml
+<<<<<<< HEAD
+*.pyc
 .idea
+=======
 .venv/
 .vscode/
+>>>>>>> origin/dev
