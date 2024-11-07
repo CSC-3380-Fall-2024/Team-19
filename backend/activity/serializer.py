@@ -9,6 +9,6 @@ from .models import Activity
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['activity_name', 'description','price', 'business']
+        fields = "__all__"
 
 
