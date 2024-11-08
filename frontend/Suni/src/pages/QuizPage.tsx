@@ -6,7 +6,6 @@ function QuizPage() {
       <>
         <h3>Quiz Page</h3>
         <Quiz/>
-        <PopOut />
       </>
     );
   }

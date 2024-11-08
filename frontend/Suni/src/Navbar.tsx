@@ -1,4 +1,4 @@
-import bgImage from './assets/images/suni-text-logo3.png';
+import bgImage from './assets/images/suni-text-logo.png';
 
 function Navbar() {
     return (

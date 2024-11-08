@@ -62,10 +62,7 @@ nav li.hover {
 
 /*Background Start*/
 .background {
-  display: block;
-  height: 100vh;
   background-image: url("./assets/backgrounds/cloud.png");
-  background-size: cover;
   /*box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);*/
   margin: 0;
 
@@ -104,6 +101,21 @@ nav li.hover {
   COLOR: HSL(0,0%,30%);
 }
 /*Pop Out End*/
+
+/*QuizPopUp Start*/
+.quiz-pop-up {
+  
+}
+
+.quiz-pop-up-button {
+  background-color: rgb(165, 195,221);
+  color: white;
+  padding: 7px 14px;
+  border-radius: 53px;
+  border:none;
+  cursor: pointer;
+}
+/*QuizPopUp End*/
 
 /*Saved here for potential use later*/
 
