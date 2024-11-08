@@ -22,6 +22,7 @@ How to setup front end:
   4. npm install lucide-react
   5. npm install tailwindcss@latest (only once) (naybe remove)
   6. npm install @headlessui/react @heroicons/react (typescript CSS) (only once, maybe remove)
+  7. npm install framer-motion
 
 
 7. Run Development Server (npm run dev)
