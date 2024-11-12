@@ -35,11 +35,11 @@ export default function Component() {
               <form className="space-y-4">
                 <div className="space-y-2">
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                  <input id="email" name="email" type="email" required className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" placeholder="hello@example.com" />
+                  <input id="email" name="email" type="email" required className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" placeholder="hello@example.com" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                  <input id="password" name="password" type="password" required className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" />
+                  <input id="password" name="password" type="password" required className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" />
                 </div>
                 <button type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                   Login
@@ -57,19 +57,19 @@ export default function Component() {
               <form className="space-y-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
-                  <input id="name" name="name" type="text" required className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" placeholder="John Doe" />
+                  <input id="name" name="name" type="text" required className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" placeholder="John Doe" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700">Email</label>
-                  <input id="signup-email" name="email" type="email" required className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" placeholder="hello@example.com" />
+                  <input id="signup-email" name="email" type="email" required className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" placeholder="hello@example.com" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700">Password</label>
-                  <input id="signup-password" name="password" type="password" required className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" />
+                  <input id="signup-password" name="password" type="password" required className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-                  <input id="confirm-password" name="confirm-password" type="password" required className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" />
+                  <input id="confirm-password" name="confirm-password" type="password" required className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500" />
                 </div>
                 <button type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                   Create Account
