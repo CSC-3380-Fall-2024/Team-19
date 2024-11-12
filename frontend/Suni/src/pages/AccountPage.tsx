@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 
-export default function Component() {
+//fixed function name to be specific to its purpose
+export default function AccountPage() {
   const [activeTab, setActiveTab] = useState("login")
 
   return (
     <div className="min-h-screen relative overflow-hidden">
 
-      {/* Auth Container */}
+      
       <div className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="w-full max-w-md space-y-8 bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl">
           <div className="flex space-x-2 mb-8">
