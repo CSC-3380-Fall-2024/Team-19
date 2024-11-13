@@ -28,6 +28,11 @@ function Navbar() {
                      <a href="/businessAppPage">BusinessApp</a>
                 </button>  
               </li>
+              <li>
+                <button className="nav-button">
+                    <a href="/accountPage">Account</a>
+                </button>
+              </li>
             </ul>
           </nav>
         </>
