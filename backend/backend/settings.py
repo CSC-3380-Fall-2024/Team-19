@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-v&6%&5wbkx9ewg=uki%s4q&9^6)2vxvg=q^3n243)r@qsukxc6"
+SECRET_KEY = "django-insecure-v&6%&5wbkx9ewg=uki%s4q&9^6)2evxvg=q^3n243)r@qsukxc6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "activity",
     "day",
     "storages",
-    # "itinerary",
+    "itinerary",
 
 
 ]
