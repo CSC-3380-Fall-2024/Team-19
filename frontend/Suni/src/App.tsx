@@ -4,7 +4,8 @@ import Navbar from './Navbar.tsx'
 //import Form from './Form.tsx'
 //import PopOut from './PopOut.tsx'
 
-import cloudBackground from './assets/backgrounds/clouds.png';
+//import cloudBackground from './assets/backgrounds/clouds.png';
+import svgCloudBackground from './assets/backgrounds/cloudBackground.svg';
 
 import './global.css'
 
@@ -36,7 +37,7 @@ function App() {
     <>
 
       <Navbar />
-      <section className="background" style={{backgroundImage: `url(${cloudBackground})`,
+      <section className="background" style={{backgroundImage: `url(${svgCloudBackground})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover"
           }}>     

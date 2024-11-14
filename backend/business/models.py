@@ -10,7 +10,7 @@ class BusinessProfile(models.Model):
     business_phone_number = models.CharField(max_length=15)
     address = models.CharField(max_length=255)
     website_url = models.URLField(blank=True, null=True)
-    image = models.ImageField(upload_to='business_images/', null=True, blank=True)
+    logo = models.ImageField(upload_to='business_images/', null=True, blank=True)
 
     def __str__(self):
         return self.business_name
