@@ -1,11 +1,19 @@
 from rest_framework import serializers
 from activity.serializer import ActivitySerializer
 
-from .models import Day
+from .models import *
 
+
+class DayActivitySerializer(serializers.ModelSerializer):
+    activity = ActivitySerializer(read_only=True)
+    class Meta:
+        model = DayActivity
+        fields = ['activity', 'start_time', 'end_time']
 
 class DaySerializer(serializers.ModelSerializer):
-    activities = ActivitySerializer(read_only=True)
+    activities = DayActivitySerializer(many=True, read_only=True)
     class Meta:
         model = Day
-        fields = "__all__"
+        fields = ['date', 'activities']
+
+
