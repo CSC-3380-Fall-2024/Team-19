@@ -4,14 +4,14 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny
 
 from .models import Activity
-from .serializer import ActivitySerializer
+from .serializer import *
 from business.models import BusinessProfile
 
 
 # Create your views here.
 
 class AddActivity(generics.CreateAPIView):
-    serializer_class = ActivitySerializer
+    serializer_class = CreateActivitySerializer
     permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
@@ -19,11 +19,11 @@ class AddActivity(generics.CreateAPIView):
         serializer.save(business=user)
 
 class ListActivity(generics.ListAPIView):
-    serializer_class = ActivitySerializer
+    serializer_class = DetailedActivitySerializer
     queryset = Activity.objects.all()
     permission_classes = [AllowAny]
-class DeleteActivity(generics.RetrieveDestroyAPIView):
-    serializer_class = ActivitySerializer
+class DeleteActivity(generics.DestroyAPIView):
+    serializer_class = DetailedActivitySerializer
     queryset = Activity.objects.all()
     permission_classes = [AllowAny]
 
