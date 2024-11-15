@@ -6,3 +6,4 @@ django-storages~=1.14.4
 boto3~=1.35.54
 botocore~=1.35.54
 pillow~=11.0.0
+drf-spectacular>=0.27.2
