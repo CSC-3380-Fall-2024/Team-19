@@ -23,6 +23,7 @@ How to setup front end:
   5. npm install tailwindcss@latest (only once) (naybe remove)
   6. npm install @headlessui/react @heroicons/react (typescript CSS) (only once, maybe remove)
   7. npm install framer-motion
+  8. npm install axios
 
 
 7. Run Development Server (npm run dev)

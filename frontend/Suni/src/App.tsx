@@ -13,6 +13,7 @@ import CalendarPage from './pages/CalendarPage.tsx';
 import BusinessAppPage from './pages/BusinessAppPage.tsx';
 import Home from './pages/Home.tsx';
 import AccountPage from './pages/AccountPage.tsx';
+import { AuthProvider } from './context/AuthProvider.tsx';
 
 
 function App() {
