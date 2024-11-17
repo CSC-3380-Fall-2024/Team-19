@@ -9,6 +9,7 @@ from business.serializers import BusinessSerializer
 from business.models import BusinessProfile
 
 
+
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -31,4 +32,6 @@ class ListBusinessesView(generics.ListAPIView):
     serializer_class = CustomerSerializer
     queryset = CustomerProfile.objects.all()
     permission_classes = [AllowAny]
+
+
 
