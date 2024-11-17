@@ -1,9 +1,14 @@
 import { createContext, useState, ReactNode } from 'react';
 
+
+//Add interface for User
+interface User{
+  username: string;
+}
 // Define the type for the context state
 interface AuthContextType {
-  auth: { user?: string; accessToken?: string } | null;
-  setAuth: (auth: { user?: string; accessToken?: string } | null) => void;
+  auth: { user?: User; accessToken?: string } | null;
+  setAuth: (auth: { user?: User; accessToken?: string } | null) => void;
 }
 
 // Create the context with a default value of undefined
@@ -16,7 +21,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   // Initialize state for authentication data
-  const [auth, setAuth] = useState<{ user?: string; accessToken?: string } | null>(null);
+  const [auth, setAuth] = useState<{ user?: User; accessToken?: string } | null>(null);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

@@ -13,7 +13,7 @@ export default function AccountPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Login form state
-  const [loginEmail, setLoginEmail] = useState('');
+  const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
@@ -55,26 +55,23 @@ export default function AccountPage() {
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/auth/login', 
-        JSON.stringify({ email: loginEmail, password: loginPassword }),
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
-        }
+      const response = await axios.post('http://localhost:8000/auth/login/', 
+        { "username": "JohnDoe123", password: "SecureP@ssword1" },
+        
       );
       
       const accessToken = response?.data?.accessToken;
       const user = response?.data?.user;
       
       setAuth({ user, accessToken });
-      setLoginEmail('');
+      setLoginUsername('');
       setLoginPassword('');
       setIsAuthenticated(true);
     } catch (err: any) {
       if (!err?.response) {
         setLoginError('No Server Response');
       } else if (err.response?.status === 400) {
-        setLoginError('Missing Email or Password');
+        setLoginError('Missing Username or Password');
       } else if (err.response?.status === 401) {
         setLoginError('Unauthorized');
       } else {
@@ -91,17 +88,16 @@ export default function AccountPage() {
       return;
     }
     try {
-      const response = await axios.post('/auth/register',
-        JSON.stringify({
-          username,
-          email: signupEmail,
-          password: signupPassword,
-        }),
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
-        }
-      );
+      const response = await axios.post('http://localhost:8000/auth/customer/register/',{
+        "user": {
+          "username": "JohnDoe123",
+          "email": "johndoe@example.com",
+          "password": "SecureP@ssword1"
+        },
+        "preferences": null
+      });
+        
+        console.log('Registration successful:', response.data);
       
       setSuccess(true);
       setUsername('');
@@ -177,16 +173,16 @@ export default function AccountPage() {
               </div>
               <form className="space-y-4" onSubmit={handleLoginSubmit}>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                  <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
+                    id="username"
+                    name="username"
+                    type="username"
+                    value={loginUsername}
+                    onChange={(e) => setLoginUsername(e.target.value)}
                     required
                     className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                    placeholder="hello@example.com"
+                    placeholder="Enter your username"
                   />
                 </div>
                 <div className="space-y-2">
@@ -273,7 +269,7 @@ export default function AccountPage() {
                 <button
                   type="submit"
                   className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                  disabled={!validName || !validPwd || !validMatch}
+                  //disabled={!validName || !validPwd || !validMatch}
                 >
                   Create Account
                 </button>

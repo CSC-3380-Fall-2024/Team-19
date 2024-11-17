@@ -38,7 +38,7 @@ function App() {
   }
 
   return (
-    <>
+    <AuthProvider>
       <Navbar />
       <section>
         <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"
@@ -53,7 +53,7 @@ function App() {
           </div>
         </div>
       </section>
-    </>
+    </AuthProvider>
   );
 }
 
