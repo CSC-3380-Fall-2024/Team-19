@@ -117,6 +117,116 @@ nav li.hover {
 }
 /*QuizPopUp End*/
 
+/* Start Calendar Custom Styling (by section/part)*/ 
+/*required instead of tailwind, bc react-big-calendar provides styling access by prebuilt class(for each section, not as a whole*/
+
+.rbc-header {
+  color: black;
+  font-size: 20px !important;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  height: 36px !important;
+}
+/*Hide bottom bar of header (month/dates) */
+.rbc-allday-cell { 
+  display: none;
+}
+
+/* Event Styles */
+
+.rbc-event, .rbc-background-event {
+  z-index: 2;
+  padding: 0 !important;
+  border: none !important;
+  
+}
+
+.rbc-event-label {
+  display: none;
+}
+
+.rbc-events-container {
+  width:100%;
+}
+/* Way to set background of time column */
+/* .rbc-background-event{
+  background-image: url("./assets/backgrounds/clear-morning.png");
+} */
+
+/* morning-bg midday-bg afternoon-bg night-bg */
+.morning-bg {
+  background-image: url("./assets/backgrounds/clear-morning.png");
+}
+
+.midday-bg {
+  background-image: url("./assets/backgrounds/clouds.png");
+}
+
+.afternoon-bg {
+  background-image: url("./assets/backgrounds/clear-afternoon.png");
+}
+
+.night-bg {
+  background-image: url("./assets/backgrounds/clear-night.png");
+}
+
+/* .rbc-background-event {
+  
+} */
+
+
+
+
+/* Customize current day header  */
+
+/* .rbc-time-header-cell .rbc-today {
+  
+} */
+
+
+/*Hour box slots on calendar*/
+/* .rbc-timeslot-group {
+
+} */
+
+/*rbc-toolbar */
+
+
+/* Way to set background of time column */
+/* .rbc-day-slot{
+  background-image: url("./assets/backgrounds/clear-morning.png");
+} */
+
+/*rbc-time-content is whole calendar itself */
+
+/* rbc-time-gutter rbc-time-columnTime slots on left */
+
+/* rbc-day-slot rbc-time-column day columns */
+
+/*   border: 1px solid #f0f0f0;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+
+  /* .rbc-events-container {
+Whole row div for events, changes here effect whole row
+} */
+
+/*Start Calendar Custom Styling*/
+
+
+
+
+
+
 /*Saved here for potential use later*/
 
 /* body {
