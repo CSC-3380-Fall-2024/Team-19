@@ -69,12 +69,11 @@ export default function AccountPage() {
       );
       
       const accessToken = response?.data?.access;
-      const refreshToken = response?.data?.refresh;
       const decodedAccessToken = jwtDecode(accessToken);
       const user = decodedAccessToken.username
       const role = decodedAccessToken.role
 
-      setAuth({accessToken, user, role, refreshToken});
+      setAuth({accessToken, user, role});
 
       setLoginUsername('');
       setLoginPassword('');

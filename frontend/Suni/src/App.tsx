@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
           <Navbar/>
       <Routes>
-        {/*<Route element={<PersistLogin/>}>*/}
+        <Route element={<PersistLogin/>}>
             <Route path="/" element={<Home/>}/>
             <Route path="/quizPage" element={<QuizPage/>}/>
             <Route path="/calendarPage" element=<CalendarPage/>/>
@@ -45,7 +45,7 @@ function App() {
         {/*  </div>*/}
         {/*</section>*/}
 
-        {/*</Route>*/}
+        </Route>
       </Routes>
       </BrowserRouter>
       </>
