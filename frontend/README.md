@@ -22,10 +22,13 @@ How to setup front end:
   4. npm install lucide-react
   5. npm install tailwindcss@latest (only once) (naybe remove)
   6. npm install @headlessui/react @heroicons/react (typescript CSS) (only once, maybe remove)
-  7. npm import react-big-calendar
-  8. npm import @types/react-big-calendar
-  9. npm install moment
+  7. npm install framer-motion
+  9. npm install axios
+  10. npm import react-big-calendar
+  11. npm import @types/react-big-calendar
+  12. npm install moment
   
+
 
 7. Run Development Server (npm run dev)
 8. Open ^^ link(localhost/#### (often 5173 by default))
