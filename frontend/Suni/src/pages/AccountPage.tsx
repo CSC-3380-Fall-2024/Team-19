@@ -1,16 +1,20 @@
 'use client'
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { jwtDecode } from "jwt-decode";
 import axios from "../api/axios";
-import useAuth from '../hooks/useAuth.tsx';
+import AuthContext from "../context/AuthProvider.tsx";
+import useRefreshToken from "../hooks/useRefreshToken.ts";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = "/auth/customer/register/"
+const LOGIN_URL = "/auth/login/"
 
 export default function AccountPage() {
-  const { auth, setAuth } = useAuth();
+  const {auth, setAuth } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const refresh = useRefreshToken()
 
   // Login form state
   const [loginUsername, setLoginUsername] = useState('');
@@ -55,19 +59,28 @@ export default function AccountPage() {
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/auth/login/', 
-        { "username": "JohnDoe123", password: "SecureP@ssword1" },
+      const response = await axios.post(LOGIN_URL,
+        { username: loginUsername, password: loginPassword},
+          {
+            headers: { 'content-type': 'application/json'},
+            withCredentials: true
+          },
         
       );
       
-      const accessToken = response?.data?.accessToken;
-      const user = response?.data?.user;
-      
-      setAuth({ user, accessToken });
+      const accessToken = response?.data?.access;
+      const refreshToken = response?.data?.refresh;
+      const decodedAccessToken = jwtDecode(accessToken);
+      const user = decodedAccessToken.username
+      const role = decodedAccessToken.role
+
+      setAuth({accessToken, user, role, refreshToken});
+
       setLoginUsername('');
       setLoginPassword('');
       setIsAuthenticated(true);
     } catch (err: any) {
+      console.log(err)
       if (!err?.response) {
         setLoginError('No Server Response');
       } else if (err.response?.status === 400) {
@@ -88,13 +101,16 @@ export default function AccountPage() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/auth/customer/register/',{
-        "user": {
-          "username": "JohnDoe123",
-          "email": "johndoe@example.com",
-          "password": "SecureP@ssword1"
+      const response = await axios.post(REGISTER_URL,{
+        user: {
+          username: username,
+          email: signupEmail,
+          password: signupPassword
         },
-        "preferences": null
+        preferences: null
+      },{
+        headers: { 'content-type': 'application/json'},
+        withCredentials: true
       });
         
         console.log('Registration successful:', response.data);
@@ -131,7 +147,7 @@ export default function AccountPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl">
-          <h2 className="text-2xl font-bold mb-4">Welcome, {auth?.user?.username || 'User'}!</h2>
+          <h2 className="text-2xl font-bold mb-4">Welcome, {auth?.user|| 'User'}!</h2>
           <p className="mb-4">You are now logged in.</p>
           <button
             onClick={handleLogout}

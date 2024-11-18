@@ -13,7 +13,7 @@ import CalendarPage from './pages/CalendarPage.tsx';
 import BusinessAppPage from './pages/BusinessAppPage.tsx';
 import Home from './pages/Home.tsx';
 import AccountPage from './pages/AccountPage.tsx';
-import { AuthProvider } from './context/AuthProvider.tsx';
+
 
 
 function App() {
@@ -38,22 +38,21 @@ function App() {
   }
 
   return (
-    <AuthProvider>
-      <Navbar />
-      <section>
-        <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"
-          style={{
-          backgroundImage: `url(${cloudBackground})`
-        }}>
-          <div className="relative min-h-screen w-full">
-            {/*scrollable content goes here */}
-            <div className="container mx-auto p-4">
-            {Component}
+      <><Navbar/>
+        <section>
+          <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"
+               style={{
+                 backgroundImage: `url(${cloudBackground})`
+               }}>
+            <div className="relative min-h-screen w-full">
+              {/*scrollable content goes here */}
+              <div className="container mx-auto p-4">
+                {Component}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </AuthProvider>
+        </section>
+      </>
   );
 }
 
