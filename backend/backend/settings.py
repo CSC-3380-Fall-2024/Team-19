@@ -32,6 +32,13 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "authentication",
     "corsheaders",
     "customer",
@@ -56,7 +64,7 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "authentication.User"
 
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -183,11 +191,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOW_CREDENTIALS = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "TOKEN_OBTAIN_SERIALIZER": "authentication.serializers.MyTokenObtainPairSerializer",
 }

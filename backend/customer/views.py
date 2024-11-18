@@ -7,8 +7,12 @@ from .models import CustomerProfile
 from .serializers import CustomerSerializer
 
 
-class RetrieveCustomerInfo(generics.RetrieveAPIView):
+class RetrieveCustomerInfo(generics.ListAPIView):
     serializer_class = CustomerSerializer
-    queryset = CustomerProfile.objects.all()
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = CustomerProfile.objects.filter(user=user)
+        return queryset
 
