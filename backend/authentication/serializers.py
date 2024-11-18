@@ -45,7 +45,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             token['profile_id'] = BusinessProfile.objects.get(user=user).id
         token["username"] = user.username
         token['role'] = user.role
-        print("idk")
         # ...
 
         return token
