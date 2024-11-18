@@ -15,6 +15,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   // Initialize state for authentication data
   const [auth, setAuth] = useState<{accessToken?: string, user?: string, role?: string} | null>(null);
+  console.log(auth)
   return (
     <AuthContext.Provider value={{auth,setAuth}}>
       {children}

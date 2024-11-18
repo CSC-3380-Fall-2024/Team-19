@@ -13,45 +13,41 @@ import CalendarPage from './pages/CalendarPage.tsx';
 import BusinessAppPage from './pages/BusinessAppPage.tsx';
 import Home from './pages/Home.tsx';
 import AccountPage from './pages/AccountPage.tsx';
-
+import PersistLogin from "./components/PersistLogin.tsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 
 function App() {
 
-  let Component
-  switch(window.location.pathname) {
-    case "/":
-      Component = <Home/>
-      break
-    case "/quizPage":
-      Component = <QuizPage/>
-      break
-    case "/calendarPage":
-      Component = <CalendarPage/>
-      break
-    case "/businessAppPage":
-      Component = <BusinessAppPage/>
-      break
-    case "/accountPage":
-      Component = <AccountPage/>
-      break
-  }
 
   return (
-      <><Navbar/>
-        <section>
-          <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"
-               style={{
-                 backgroundImage: `url(${cloudBackground})`
-               }}>
-            <div className="relative min-h-screen w-full">
-              {/*scrollable content goes here */}
-              <div className="container mx-auto p-4">
-                {Component}
-              </div>
-            </div>
-          </div>
-        </section>
+      <>
+      <BrowserRouter>
+          <Navbar/>
+      <Routes>
+        {/*<Route element={<PersistLogin/>}>*/}
+            <Route path="/" element={<Home/>}/>
+            <Route path="/quizPage" element={<QuizPage/>}/>
+            <Route path="/calendarPage" element=<CalendarPage/>/>
+            <Route path="/businessAppPage" element=<BusinessAppPage/>/>
+            <Route path="accountPage" element={<AccountPage />}/>
+        {/*<section>*/}
+        {/*  <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"*/}
+        {/*       style={{*/}
+        {/*         backgroundImage: `url(${cloudBackground})`*/}
+        {/*       }}>*/}
+        {/*    <div className="relative min-h-screen w-full">*/}
+        {/*      /!*scrollable content goes here *!/*/}
+        {/*      <div className="container mx-auto p-4">*/}
+        {/*        {Component}*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</section>*/}
+
+        {/*</Route>*/}
+      </Routes>
+      </BrowserRouter>
       </>
   );
 }

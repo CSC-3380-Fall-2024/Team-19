@@ -1,56 +1,44 @@
 import bgImage from './assets/images/suni-text-logo.png';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
     return (
-        <>
-          <nav className="nav">
+        <nav className="nav">
             <ul>
-              <li>
-                <img className="nav-image" src={bgImage} alt="Logo"></img>
-              </li>
-              <li>
-                <button className="nav-button">
-                    <a href="/">Home</a>
-                </button>
-              </li>
-              <li>
-                <button className="nav-button">
-                     <a href="/quizPage">Quiz</a>
-                </button>  
-              </li>
-              <li>
-                <button className="nav-button">
-                    <a href="/calendarPage">Calendar</a>
-                </button>
-              </li>
-              <li>
-                <button className="nav-button">
-                     <a href="/businessAppPage">BusinessApp</a>
-                </button>  
-              </li>
-              <li>
-                <button className="nav-button">
-                    <a href="/accountPage">Account</a>
-                </button>
-              </li>
+                {/* Logo */}
+                <li>
+                    <img className="nav-image" src={bgImage} alt="Logo" />
+                </li>
+
+                {/* Navigation Links */}
+                <li>
+                    <button className="nav-button">
+                        <Link to="/">Home</Link>
+                    </button>
+                </li>
+                <li>
+                    <button className="nav-button">
+                        <Link to="/quizPage">Quiz</Link>
+                    </button>
+                </li>
+                <li>
+                    <button className="nav-button">
+                        <Link to="/calendarPage">Calendar</Link>
+                    </button>
+                </li>
+                <li>
+                    <button className="nav-button">
+                        <Link to="/businessAppPage">BusinessApp</Link>
+                    </button>
+                </li>
+                <li>
+                    <button className="nav-button">
+                        <Link to="/accountPage">Account</Link>
+                    </button>
+                </li>
             </ul>
-          </nav>
-        </>
+        </nav>
     );
-  }
+}
 
-
-  // function CustomLink ({href, children, ...props}){
-  //   const path = window.location.pathname
-
-  //   return (
-  //     <li>
-  //       <a href={href}>{children}</a>
-  //     </li>
-      
-  //   )
-  // }
-
-
-  
-  export default Navbar
+export default Navbar;
