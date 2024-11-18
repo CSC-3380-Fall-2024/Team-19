@@ -42,7 +42,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             token['profile_id'] = CustomerProfile.objects.get(user=user).id
         elif user.role == 'BUSINESS':
             token['profile_id'] = BusinessProfile.objects.get(user=user).id
-
+        token["username"] = user.username
         token['role'] = user.role
         # ...
 
