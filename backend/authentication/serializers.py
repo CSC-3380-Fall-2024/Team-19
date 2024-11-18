@@ -31,7 +31,8 @@ class UserCustomerSerializer(serializers.ModelSerializer):
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
+
+
     def get_token(cls, user):
         global profile_id
         token = super().get_token(user)
@@ -44,6 +45,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             token['profile_id'] = BusinessProfile.objects.get(user=user).id
         token["username"] = user.username
         token['role'] = user.role
+        print("idk")
         # ...
 
         return token

@@ -10,8 +10,8 @@ urlpatterns = [
 
     path('business/register/', BusinessSignUpView.as_view(), name='customer_register'),
 
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),
 
     path('api-auth/', include('rest_framework.urls')),
 
