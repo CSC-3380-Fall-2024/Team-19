@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .models import Activity
 from .serializer import *
@@ -21,7 +21,7 @@ class AddActivity(generics.CreateAPIView):
 class ListActivity(generics.ListAPIView):
     serializer_class = DetailedActivitySerializer
     queryset = Activity.objects.all()
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 class DeleteActivity(generics.DestroyAPIView):
     serializer_class = DetailedActivitySerializer
     queryset = Activity.objects.all()
