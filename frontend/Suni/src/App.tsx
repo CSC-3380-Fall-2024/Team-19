@@ -21,16 +21,17 @@ function App() {
 
 
   return (
-      <>
+
       <BrowserRouter>
           <Navbar/>
       <Routes>
         <Route element={<PersistLogin/>}>
             <Route path="/" element={<Home/>}/>
+            <Route path="accountPage" element={<AccountPage />}/>
             <Route path="/quizPage" element={<QuizPage/>}/>
             <Route path="/calendarPage" element=<CalendarPage/>/>
             <Route path="/businessAppPage" element=<BusinessAppPage/>/>
-            <Route path="accountPage" element={<AccountPage />}/>
+
         {/*<section>*/}
         {/*  <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"*/}
         {/*       style={{*/}
@@ -48,7 +49,6 @@ function App() {
         </Route>
       </Routes>
       </BrowserRouter>
-      </>
   );
 }
 

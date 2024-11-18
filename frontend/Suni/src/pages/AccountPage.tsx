@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { jwtDecode } from "jwt-decode";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider.tsx";
-import useRefreshToken from "../hooks/useRefreshToken.ts";
+import useLogout from "../hooks/useLogout.ts";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -11,10 +11,11 @@ const REGISTER_URL = "/auth/customer/register/"
 const LOGIN_URL = "/auth/login/"
 
 export default function AccountPage() {
+  const logout = useLogout();
   const {auth, setAuth } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const refresh = useRefreshToken()
+
 
   // Login form state
   const [loginUsername, setLoginUsername] = useState('');
@@ -136,10 +137,10 @@ export default function AccountPage() {
     }
   };
 
-  const handleLogout = () => {
-    setAuth({});
+  const signOut = async () => {
+    await logout();
     setIsAuthenticated(false);
-  };
+  }
 
   // If authenticated, show the authenticated view
   if (isAuthenticated) {
@@ -149,7 +150,7 @@ export default function AccountPage() {
           <h2 className="text-2xl font-bold mb-4">Welcome, {auth?.user|| 'User'}!</h2>
           <p className="mb-4">You are now logged in.</p>
           <button
-            onClick={handleLogout}
+            onClick={signOut}
             className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
           >
             Logout

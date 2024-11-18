@@ -13,8 +13,6 @@ const useRefreshToken = () => {
         const user = decodedAccessToken.username
         const role = decodedAccessToken.role
         setAuth(prev => {
-            console.log(prev);
-            console.log(response.data.access);
             return {
                 ...prev, accessToken: response.data.access, user, role
             }
