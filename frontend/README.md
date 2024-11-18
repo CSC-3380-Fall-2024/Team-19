@@ -24,6 +24,7 @@ How to setup front end:
   6. npm install @headlessui/react @heroicons/react (typescript CSS) (only once, maybe remove)
   7. npm import react-big-calendar
   8. npm import @types/react-big-calendar
+  9. npm install moment
   
 
 7. Run Development Server (npm run dev)
