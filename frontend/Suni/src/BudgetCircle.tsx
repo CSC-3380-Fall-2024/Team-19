@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, Sector } from 'recharts';
-//import eventTypes from "./calendar/events/eventTypes.ts"
+import { EVENTS } from './calendar/events/eventConstants'; // Assuming EVENTS is imported from eventConstants.ts
+import { Food, Activity, Transportation, Entertainment, EventItem } from './calendar/events/eventTypes'; // Assuming these are your event types
 
-//convert EventItem -> Budget Item values
-//name ->
-//type(category) -> name(current, change ofc)
-//price -> value
-//color: (create cohesive grouping (add to eventItem))
-
-//Ideal:
-//Get needed vals/props from calendar,
-//1. get group/category to place in
-//2. specialize within greater category when clickedon (on calendar) by name
-
+// Define the BudgetItem type
 interface BudgetItem {
   name: string;
   value: number;
@@ -25,13 +16,78 @@ interface BudgetChartProps {
 
 const COLORS = ['#8B4513', '#90EE90', '#6495ED', '#4169E1', '#1E90FF', '#D3D3D3', '#FFA500'];
 
-const INITIAL_DATA: BudgetItem[] = [
-  { name: 'Food', value: 90, color: '#22c55e' },
-  { name: 'Transportation', value: 30, color: '#808080' },
-  { name: 'Activities', value: 150, color: '#4169E1' },
-  { name: 'Entertainment', value: 100, color: '#fb923c' },
-  { name: 'Souveniers', value: 70, color: '#D3D3D3' },
-];
+// This function will categorize the events and return budget items
+const generateBudgetData = (events: EventItem[]): BudgetItem[] => {
+  // Use reduce to categorize the events
+  const categorizedEvents = events.reduce(
+    (acc, event) => {
+      if (event?.data?.food) acc.foods.push(event);
+      if (event?.data?.activity) acc.activities.push(event);
+      if (event?.data?.transportation) acc.transportations.push(event);
+      if (event?.data?.entertainment) acc.entertainments.push(event);
+      return acc;
+    },
+    {
+      foods: [] as EventItem[],
+      activities: [] as EventItem[],
+      transportations: [] as EventItem[],
+      entertainments: [] as EventItem[],
+    }
+  );
+
+  // Convert each category into a BudgetItem
+  const budgetData: BudgetItem[] = [];
+
+  // Map over each category and create the corresponding BudgetItem
+  categorizedEvents.foods.forEach((event) => {
+    const food = event.data?.food;
+    if (food) {
+      budgetData.push({
+        name: food.name,
+        value: food.price, // Use price for the value
+        color: COLORS[0], // Assign a color
+      });
+    }
+  });
+
+  categorizedEvents.activities.forEach((event) => {
+    const activity = event.data?.activity;
+    if (activity) {
+      budgetData.push({
+        name: activity.name,
+        value: 50, // Placeholder value for activity
+        color: COLORS[1], // Assign a color
+      });
+    }
+  });
+
+  categorizedEvents.transportations.forEach((event) => {
+    const transportation = event.data?.transportation;
+    if (transportation) {
+      budgetData.push({
+        name: transportation.name,
+        value: transportation.price, // Use price for the value
+        color: COLORS[2], // Assign a color
+      });
+    }
+  });
+
+  categorizedEvents.entertainments.forEach((event) => {
+    const entertainment = event.data?.entertainment;
+    if (entertainment) {
+      budgetData.push({
+        name: entertainment.name,
+        value: 100, // Placeholder value for entertainment
+        color: COLORS[3], // Assign a color
+      });
+    }
+  });
+
+  return budgetData;
+};
+
+// Generate the initial data dynamically from the EVENTS array
+const INITIAL_DATA: BudgetItem[] = generateBudgetData(EVENTS);
 
 const renderActiveShape = (props: any) => {
   const RADIAN = Math.PI / 180;
@@ -88,10 +144,13 @@ const BudgetChart: React.FC<BudgetChartProps> = ({ initialData = INITIAL_DATA })
   };
 
   const totalBudget = data.reduce((sum, item) => sum + item.value, 0);
- //change size / shape / color
+
   return (
-    <div className="w-[500px] h-[755px] bg-gray-800 p-5 rounded-xl"> 
-      <h2 className="text-white text-center text-2xl mb-5">Itenerary Budget</h2>
+    <div className="w-[500px] h-[755px] bg-gray-800 p-5 rounded-xl">
+      <h2 className="text-white text-center text-2xl mb-5">Itinerary Budget</h2>
+      <div className="text-white text-center mb">
+        Total Budget: ${totalBudget}
+      </div>
       <ResponsiveContainer>
         <PieChart>
           <Pie
@@ -109,29 +168,14 @@ const BudgetChart: React.FC<BudgetChartProps> = ({ initialData = INITIAL_DATA })
               <Cell key={`cell-${index}`} fill={entry.color || COLORS[index % COLORS.length]} />
             ))}
           </Pie>
+          
           <Tooltip formatter={(value) => [`$${value}`, 'Value']} />
-          <Legend />
+          {/* <Legend /> (auto shows values b color, unneeded rn for styling reasons*/}
         </PieChart>
       </ResponsiveContainer>
-      <div className="text-white text-center mt-5">
-        Total Budget: ${totalBudget}
-      </div>
+
     </div>
   );
 };
 
 export default BudgetChart;
-
-//default budget circle values:
-
-// const COLORS = ['#8B4513', '#90EE90', '#6495ED', '#4169E1', '#1E90FF', '#D3D3D3', '#FFA500'];
-
-// const INITIAL_DATA: BudgetItem[] = [
-//   { name: 'Hotel', value: 1200, color: '#8B4513' }, //have these values be based on calendar values (when clicked)
-//   { name: 'Food', value: 400, color: '#90EE90' },
-//   { name: 'Transportation', value: 200, color: '#6495ED' },
-//   { name: 'Utilities', value: 150, color: '#4169E1' },
-//   { name: 'Entertainment', value: 100, color: '#1E90FF' },
-//   { name: 'Savings', value: 300, color: '#D3D3D3' },
-//   { name: 'Miscellaneous', value: 150, color: '#FFA500' },
-// ];

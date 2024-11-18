@@ -103,9 +103,9 @@ nav li.hover {
 /*Pop Out End*/
 
 /*QuizPopUp Start*/
-.quiz-pop-up {
+/* .quiz-pop-up {
   
-}
+} */
 
 .quiz-pop-up-button {
   background-color: rgb(165, 195,221);
@@ -116,6 +116,11 @@ nav li.hover {
   cursor: pointer;
 }
 /*QuizPopUp End*/
+
+/* Budget Circle Adjustments */
+/* .recharts-responsive-container {
+  margin: 0;
+} */
 
 /* Start Calendar Custom Styling (by section/part)*/ 
 /*required instead of tailwind, bc react-big-calendar provides styling access by prebuilt class(for each section, not as a whole*/
@@ -175,8 +180,9 @@ nav li.hover {
   
 } */
 
-
-
+.rbc-event-content {
+  color: black;
+}
 
 /* Customize current day header  */
 
@@ -221,11 +227,6 @@ Whole row div for events, changes here effect whole row
 } */
 
 /*Start Calendar Custom Styling*/
-
-
-
-
-
 
 /*Saved here for potential use later*/
 

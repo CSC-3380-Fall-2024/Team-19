@@ -13,7 +13,7 @@ function CalendarPage() {
             <DraggableCalendar/> {/* calendar beind displayed(default to week view) */}
           </div>
           <div className="">
-            <BudgetCircle/>
+            <BudgetCircle events={[]}/>
           </div>
         </div>
       </>
