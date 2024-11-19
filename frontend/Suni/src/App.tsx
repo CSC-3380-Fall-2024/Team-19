@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route element={<PersistLogin/>}>
             <Route path="/" element={<Home/>}/>
-            <Route path="accountPage" element={<AccountPage />}/>
+            <Route path="accountPage" element={<AccountPage/>}/>
             <Route path="/quizPage" element={<QuizPage/>}/>
             <Route path="/calendarPage" element=<CalendarPage/>/>
             <Route path="/businessAppPage" element=<BusinessAppPage/>/>
@@ -35,9 +35,21 @@ function App() {
   );
 }
 
-//<Header />
-// <Form />
-//<Footer /> 
+
 
 export default App
 
+
+        /*<section>*/
+        /*  <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"*/
+        /*       style={{*/
+        /*         backgroundImage: `url(${cloudBackground})`*/
+        /*       }}>*/
+        /*    <div className="relative min-h-screen w-full">*/
+        /*      /!*scrollable content goes here *!/*/
+        /*      <div className="container mx-auto p-4">*/
+        /*        {Component}*/
+        /*      </div>*/
+        /*    </div>*/
+        /*  </div>*/ 
+        /*</section>*/
