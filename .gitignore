@@ -6,4 +6,7 @@
 =======
 .venv/
 .vscode/
+
 >>>>>>> origin/dev
+
+/backend/.env
