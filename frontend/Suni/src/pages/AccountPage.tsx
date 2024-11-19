@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider.tsx";
 import useLogout from "../hooks/useLogout.ts";
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -13,6 +14,11 @@ const LOGIN_URL = "/auth/login/"
 export default function AccountPage() {
   const logout = useLogout();
   const {auth, setAuth } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -79,6 +85,7 @@ export default function AccountPage() {
       setLoginUsername('');
       setLoginPassword('');
       setIsAuthenticated(true);
+      navigate(from, {replace: true});
     } catch (err: any) {
       console.log(err)
       if (!err?.response) {
