@@ -4,7 +4,6 @@ import { jwtDecode } from "jwt-decode";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider.tsx";
 import useLogout from "../hooks/useLogout.ts";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 
 import cloudBackground from '../assets/backgrounds/clouds.png'; //Cloud Background
@@ -18,11 +17,6 @@ const LOGIN_URL = "/auth/login/"
 export default function AccountPage() {
   const logout = useLogout();
   const {auth, setAuth } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
-
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -45,10 +39,6 @@ export default function AccountPage() {
   const [validName, setValidName] = useState(false);
   const [validPwd, setValidPwd] = useState(false);
   const [validMatch, setValidMatch] = useState(false);
-
-  const [showUsernameTip, setShowUsernameTip] = useState(false);
-  const [showPasswordTip, setShowPasswordTip] = useState(false);
-  const [showEmailTip, setShowEmailTip] = useState(false);
 
   // Check if user is already authenticated
   useEffect(() => {
@@ -94,8 +84,6 @@ export default function AccountPage() {
       setLoginUsername('');
       setLoginPassword('');
       setIsAuthenticated(true);
-
-      navigate(from, {replace: true});
 
     } catch (err: any) {
       console.log(err)
@@ -250,71 +238,76 @@ export default function AccountPage() {
                       </div>
                     )}
 
-          {activeTab === 'signup' && (
-            <div className="space-y-6">
-              <div className="space-y-2 text-center">
-                <h2 className="text-3xl font-bold text-black">Create Account</h2>
-                <p className="text-gray-600">Sign up to start planning your trip</p>
-              </div>
-              <form className="space-y-4" onSubmit={handleRegisterSubmit}>
-                <div className="space-y-2">
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">Username</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    onFocus={() => setShowUsernameTip(true)}
-                    onBlur={() => setShowUsernameTip(false)}
-                    required
-                    className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                    placeholder="JohnDoe123"
-                  />
-                   {showUsernameTip && (
-                    <p className="text-gray-500 text-xs">
-                      Username must start with a letter, 4-24 characters, and only include letters, numbers, underscores, and hyphens.
-                    </p>
-                   )}
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700">Email</label>
-                  <input
-                    id="signup-email"
-                    name="email"
-                    type="email"
-                    value={signupEmail}
-                    onChange={(e) => setSignupEmail(e.target.value)}
-                    onFocus={() => setShowEmailTip(true)}
-                    onBlur={() => setShowEmailTip(false)}
-                    required
-                    className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                    placeholder="hello@example.com"
-                  />
-                   {showEmailTip && (
-                    <p className="text-gray-500 text-xs">
-                      Enter a valid email address (e.g., johndoe@example.com).
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700">Password</label>
-                  <input
-                    id="signup-password"
-                    name="password"
-                    type="password"
-                    value={signupPassword}
-                    onChange={(e) => setSignupPassword(e.target.value)}
-                    onFocus={() => setShowPasswordTip(true)}
-                    onBlur={() => setShowPasswordTip(false)}
-                    required
-                    className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                  />
-                  {showPasswordTip && (
-                    <p className="text-gray-500 text-xs">
-                      Password must be 8-24 characters long. Must include at least one upper and lower case letter, one number, and one special character of (!@#$%).
-                    </p>
-                  )}
+                    {activeTab === 'signup' && (
+                      <div className="space-y-6">
+                        <div className="space-y-2 text-center">
+                          <h2 className="text-3xl font-bold text-black">Create Account</h2>
+                          <p className="text-gray-600">Sign up to start planning your trip</p>
+                        </div>
+                        <form className="space-y-4" onSubmit={handleRegisterSubmit}>
+                          <div className="space-y-2">
+                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Username</label>
+                            <input
+                              id="name"
+                              name="name"
+                              type="text"
+                              value={username}
+                              onChange={(e) => setUsername(e.target.value)}
+                              required
+                              className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+                              placeholder="johndoe123"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700">Email</label>
+                            <input
+                              id="signup-email"
+                              name="email"
+                              type="email"
+                              value={signupEmail}
+                              onChange={(e) => setSignupEmail(e.target.value)}
+                              required
+                              className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+                              placeholder="hello@example.com"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700">Password</label>
+                            <input
+                              id="signup-password"
+                              name="password"
+                              type="password"
+                              value={signupPassword}
+                              onChange={(e) => setSignupPassword(e.target.value)}
+                              required
+                              className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+                            <input
+                              id="confirm-password"
+                              name="confirm-password"
+                              type="password"
+                              value={confirmPassword}
+                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              required
+                              className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+                            />
+                          </div>
+                          {registerError && <p className="text-red-500">{registerError}</p>}
+                          <button
+                            type="submit"
+                            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                            //disabled={!validName || !validPwd || !validMatch}
+                          >
+                            Create Account
+                          </button>
+                          {success && <p className="text-green-500">Registration successful! You can now log in.</p>}
+                        </form>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             {/* Content End*/}

@@ -13,38 +13,43 @@ import Home from './pages/Home.tsx';
 import AccountPage from './pages/AccountPage.tsx';
 import PersistLogin from "./components/PersistLogin.tsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Layout from './components/Layout.tsx';
-import RequireAuth from './components/RequireAuth.tsx';
+
 
 function App() {
 
 
   return (
 
-    <>
-      <Navbar/>
+      <BrowserRouter>
+          <Navbar/>
       <Routes>
-
-        <Route element={<Layout />}>
-          <Route element={<PersistLogin/>}>
-                {/* public route*/}
-              <Route path="/" element={<Home/>}/>
-              <Route path="accountPage" element={<AccountPage />}/>
-              <Route path="businessAppPage" element={<BusinessAppPage/>}/>
-              {/* protect these routes */}
-              <Route element={<RequireAuth />}>
-
-                <Route path="quizPage" element={<QuizPage/>}/>
-                <Route path="calendarPage" element={<CalendarPage/>}/>
-              </Route>
-          </Route>
-
+        <Route element={<PersistLogin/>}>
+            <Route path="/" element={<Home/>}/>
+            <Route path="accountPage" element={<AccountPage/>}/>
+            <Route path="/quizPage" element={<QuizPage/>}/>
+            <Route path="/calendarPage" element=<CalendarPage/>/>
+            <Route path="/businessAppPage" element=<BusinessAppPage/>/>
         </Route>
       </Routes>
-    </>
+      </BrowserRouter>
   );
 }
 
 
 
 export default App
+
+
+        /*<section>*/
+        /*  <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"*/
+        /*       style={{*/
+        /*         backgroundImage: `url(${cloudBackground})`*/
+        /*       }}>*/
+        /*    <div className="relative min-h-screen w-full">*/
+        /*      /!*scrollable content goes here *!/*/
+        /*      <div className="container mx-auto p-4">*/
+        /*        {Component}*/
+        /*      </div>*/
+        /*    </div>*/
+        /*  </div>*/ 
+        /*</section>*/
