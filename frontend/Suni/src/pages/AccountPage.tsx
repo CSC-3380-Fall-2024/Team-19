@@ -41,6 +41,10 @@ export default function AccountPage() {
   const [validPwd, setValidPwd] = useState(false);
   const [validMatch, setValidMatch] = useState(false);
 
+  const [showUsernameTip, setShowUsernameTip] = useState(false);
+  const [showPasswordTip, setShowPasswordTip] = useState(false);
+  const [showEmailTip, setShowEmailTip] = useState(false);
+
   // Check if user is already authenticated
   useEffect(() => {
     if (auth?.accessToken) {
@@ -246,10 +250,17 @@ export default function AccountPage() {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    onFocus={() => setShowUsernameTip(true)}
+                    onBlur={() => setShowUsernameTip(false)}
                     required
                     className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                    placeholder="johndoe123"
+                    placeholder="JohnDoe123"
                   />
+                   {showUsernameTip && (
+                    <p className="text-gray-500 text-xs">
+                      Username must start with a letter, 4-24 characters, and only include letters, numbers, underscores, and hyphens.
+                    </p>
+                   )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700">Email</label>
@@ -259,10 +270,17 @@ export default function AccountPage() {
                     type="email"
                     value={signupEmail}
                     onChange={(e) => setSignupEmail(e.target.value)}
+                    onFocus={() => setShowEmailTip(true)}
+                    onBlur={() => setShowEmailTip(false)}
                     required
                     className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
                     placeholder="hello@example.com"
                   />
+                   {showEmailTip && (
+                    <p className="text-gray-500 text-xs">
+                      Enter a valid email address (e.g., johndoe@example.com).
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700">Password</label>
@@ -272,9 +290,16 @@ export default function AccountPage() {
                     type="password"
                     value={signupPassword}
                     onChange={(e) => setSignupPassword(e.target.value)}
+                    onFocus={() => setShowPasswordTip(true)}
+                    onBlur={() => setShowPasswordTip(false)}
                     required
                     className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
                   />
+                  {showPasswordTip && (
+                    <p className="text-gray-500 text-xs">
+                      Password must be 8-24 characters long. Must include at least one upper and lower case letter, one number, and one special character of (!@#$%).
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
