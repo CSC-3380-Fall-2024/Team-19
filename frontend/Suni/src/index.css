@@ -16,6 +16,10 @@
 
 }
 
+.nav-color {
+  background-color: rgb(209, 220, 240);
+}
+
 .nav ul {
   padding: 0;
   margin: 0;
