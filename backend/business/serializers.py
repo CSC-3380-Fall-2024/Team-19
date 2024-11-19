@@ -3,14 +3,12 @@ from authentication.serializers import UserSerializer
 from authentication.models import User
 from .models import *
 
-from activity.models import Activity
-
-from activity.serializer import ActivitySerializer
+from activity.serializer import DetailedActivitySerializer
 
 
 class BusinessSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    activities = ActivitySerializer(many=True, read_only=True)
+    activities = DetailedActivitySerializer(many=True, read_only=True)
 
     class Meta:
         model = BusinessProfile

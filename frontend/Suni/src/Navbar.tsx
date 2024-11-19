@@ -102,6 +102,5 @@ function Navbar() {
       </div>
     </header>
   );
-}
 
 export default Navbar;

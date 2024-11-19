@@ -1,11 +1,15 @@
 from rest_framework import serializers
-from authentication.serializers import UserSerializer
+from authentication.serializers import UserCustomerSerializer
 from authentication.models import User
 from .models import *
+from itinerary.serializers import ItinerarySerializer
+
+
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserCustomerSerializer()
+    itineraries = ItinerarySerializer(many=True, read_only=True)
 
     class Meta:
         model = CustomerProfile
