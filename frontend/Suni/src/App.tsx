@@ -26,16 +26,17 @@ function App() {
     <>
       <Navbar/>
       <Routes>
-        <Route path='/' element={<Layout />}>
+        <Route element={<Layout />}>
           <Route element={<PersistLogin/>}>
                 {/* public route*/}
-                <Route path="accountPage" element={<AccountPage />}/>
+              <Route path="/" element={<Home/>}/>
+              <Route path="accountPage" element={<AccountPage />}/>
+              <Route path="businessAppPage" element={<BusinessAppPage/>}/>
               {/* protect these routes */}
               <Route element={<RequireAuth />}>
-                <Route index element={<Home/>}/>
+
                 <Route path="quizPage" element={<QuizPage/>}/>
                 <Route path="calendarPage" element={<CalendarPage/>}/>
-                <Route path="businessAppPage" element={<BusinessAppPage/>}/>
               </Route>
           </Route>
         </Route>
