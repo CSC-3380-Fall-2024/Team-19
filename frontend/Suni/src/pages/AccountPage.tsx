@@ -5,6 +5,7 @@ import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider.tsx";
 import useLogout from "../hooks/useLogout.ts";
 
+
 import cloudBackground from '../assets/backgrounds/clouds.png'; //Cloud Background
 
 
@@ -18,6 +19,7 @@ export default function AccountPage() {
   const {auth, setAuth } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 
 
   // Login form state
@@ -82,6 +84,7 @@ export default function AccountPage() {
       setLoginUsername('');
       setLoginPassword('');
       setIsAuthenticated(true);
+
     } catch (err: any) {
       console.log(err)
       if (!err?.response) {
@@ -89,7 +92,7 @@ export default function AccountPage() {
       } else if (err.response?.status === 400) {
         setLoginError('Missing Username or Password');
       } else if (err.response?.status === 401) {
-        setLoginError('Unauthorized');
+        setLoginError('Incorrect Username or Password');
       } else {
         setLoginError('Login Failed');
       }

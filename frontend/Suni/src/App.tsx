@@ -4,8 +4,6 @@ import Navbar from './Navbar.tsx'
 //import Form from './Form.tsx'
 //import PopOut from './PopOut.tsx'
 
-import cloudBackground from './assets/backgrounds/clouds.png';
-
 import './global.css'
 
 import QuizPage from './pages/QuizPage.tsx';
@@ -25,12 +23,12 @@ function App() {
       <BrowserRouter>
           <Navbar/>
       <Routes>
-        <Route element={<PersistLogin/>} >
-          <Route path="/" element={<Home/>}/>
-          <Route path="accountPage" element={<AccountPage />}/>
-          <Route path="/quizPage" element={<QuizPage/>}/>
-          <Route path="/calendarPage" element={<CalendarPage/>}/>
-          <Route path="/businessAppPage" element={<BusinessAppPage/>}/>
+        <Route element={<PersistLogin/>}>
+            <Route path="/" element={<Home/>}/>
+            <Route path="accountPage" element={<AccountPage/>}/>
+            <Route path="/quizPage" element={<QuizPage/>}/>
+            <Route path="/calendarPage" element=<CalendarPage/>/>
+            <Route path="/businessAppPage" element=<BusinessAppPage/>/>
         </Route>
       </Routes>
       </BrowserRouter>
