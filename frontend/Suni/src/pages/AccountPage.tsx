@@ -5,6 +5,8 @@ import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider.tsx";
 import useLogout from "../hooks/useLogout.ts";
 
+
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/auth/customer/register/"
@@ -15,6 +17,7 @@ export default function AccountPage() {
   const {auth, setAuth } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 
 
   // Login form state
@@ -79,6 +82,7 @@ export default function AccountPage() {
       setLoginUsername('');
       setLoginPassword('');
       setIsAuthenticated(true);
+
     } catch (err: any) {
       console.log(err)
       if (!err?.response) {
@@ -86,7 +90,7 @@ export default function AccountPage() {
       } else if (err.response?.status === 400) {
         setLoginError('Missing Username or Password');
       } else if (err.response?.status === 401) {
-        setLoginError('Unauthorized');
+        setLoginError('Incorrect Username or Password');
       } else {
         setLoginError('Login Failed');
       }

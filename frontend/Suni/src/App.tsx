@@ -4,8 +4,6 @@ import Navbar from './Navbar.tsx'
 //import Form from './Form.tsx'
 //import PopOut from './PopOut.tsx'
 
-import cloudBackground from './assets/backgrounds/clouds.png';
-
 import './global.css'
 
 import QuizPage from './pages/QuizPage.tsx';
@@ -31,21 +29,6 @@ function App() {
             <Route path="/quizPage" element={<QuizPage/>}/>
             <Route path="/calendarPage" element=<CalendarPage/>/>
             <Route path="/businessAppPage" element=<BusinessAppPage/>/>
-
-        {/*<section>*/}
-        {/*  <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"*/}
-        {/*       style={{*/}
-        {/*         backgroundImage: `url(${cloudBackground})`*/}
-        {/*       }}>*/}
-        {/*    <div className="relative min-h-screen w-full">*/}
-        {/*      /!*scrollable content goes here *!/*/}
-        {/*      <div className="container mx-auto p-4">*/}
-        {/*        {Component}*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-        {/*</section>*/}
-
         </Route>
       </Routes>
       </BrowserRouter>
