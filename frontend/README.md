@@ -19,8 +19,6 @@ How to setup front end:
   9. npm install @types/react-big-calendar
   10. npm install moment
   11. npm install jwt-decode
-  
-
 
 7. Run Development Server (npm run dev)
 8. Open ^^ link(localhost/#### (often 5173 by default))

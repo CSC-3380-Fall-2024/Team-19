@@ -3,6 +3,8 @@ import DraggableCalendar from '../calendar/DraggableCalendar.tsx'
 
 import cloudBackground from '../assets/backgrounds/clouds.png';
 
+import CombinedCalendar from '../calendar/CombinedCalendar.tsx';
+
 
 function CalendarPage() {
     return (
@@ -15,7 +17,7 @@ function CalendarPage() {
             <div className="container mx-20 p-4">
               <div className="inline-flex gap-6 my-16">
                 <div className="ml-0 w-[1200px] h-[755px] bg-blue-100/80 p-5 rounded-xl overflow-hidden">
-                  <DraggableCalendar/> {/* calendar beind displayed(default to week view) */}
+                  <CombinedCalendar/> {/* calendar beind displayed(default to week view) */}
                 </div>
                 <div >
                   <BudgetCircle/>
