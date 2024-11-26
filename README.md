@@ -5,7 +5,7 @@ Step 1: Install Python Download and install Python (>=3.x) from python.org.
 
 Step 2: Clone the Project
 Pull the backend repository from GitHub:
-`git clone https://github.com/Team-19/backend.git`
+`git clone https://github.com/Team-19`
 `cd backend`
 
 Step 3: Set Up a Virtual Environment
