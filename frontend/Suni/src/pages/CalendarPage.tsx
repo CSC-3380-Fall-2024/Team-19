@@ -14,7 +14,7 @@ function CalendarPage() {
               backgroundImage: `url(${cloudBackground})`
         }}>
           <div className="relative min-h-screen w-full">
-            <div className="container mx-20 p-4">
+            <div className="container w-16 md:w-32 lg:w-48">    {/* container mx-auto p-4 */}
               <div className="inline-flex gap-6 my-16">
                 <div className="ml-0 w-[1200px] h-[755px] bg-blue-100/80 p-5 rounded-xl overflow-hidden">
                   <CombinedCalendar/> {/* calendar beind displayed(default to week view) */}
