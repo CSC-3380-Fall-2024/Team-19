@@ -57,22 +57,22 @@
 
 export type Morning = {
   temperature: number;
-  condition: 'Sunny' | 'Partly Cloudy' | 'Cloudy' | 'Rainy';
+  weather: 'Clear' | 'Cloudy' | 'Rain' | 'Thunderstorm' | 'Snow';
 };
 
 export type Midday = {
   temperature: number;
-  condition: 'Sunny' | 'Partly Cloudy' | 'Cloudy' | 'Rainy' | 'Stormy';
+  weather: 'Clear' | 'Cloudy' | 'Rain' | 'Thunderstorm' | 'Snow';
 };
 
 export type Afternoon = {
   temperature: number;
-  condition: 'Sunny' | 'Partly Cloudy' | 'Cloudy' | 'Rainy' | 'Stormy';
+  weather: 'Clear' | 'Cloudy' | 'Rain' | 'Thunderstorm' | 'Snow';
 };
 
 export type Night = {
   temperature: number;
-  condition: 'Clear' | 'Partly Cloudy' | 'Cloudy' | 'Rainy';
+  weather: 'Clear' | 'Cloudy' | 'Rain' | 'Thunderstorm' | 'Snow';
 };
 
 export type WeatherEventItem = {

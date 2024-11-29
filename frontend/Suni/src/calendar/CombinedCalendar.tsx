@@ -14,6 +14,15 @@ import TransportationEvent from './events/TransportationEvent'
 import AddEvent from './events/AddEvent'
 import AddWeatherEventModal from './weather/AddWeatherEventModel'
 
+import clouds from '../assets/backgrounds/clouds.png';
+import morningClear from '../assets/weather/morning-clear.png';
+import middayClear from '../assets/weather/midday-clear.png';
+import afternoonClear from '../assets/weather/afternoon-clear.png';
+import nightClear from  '../assets/weather/night-clear.png';
+import nightClouds from '../assets/weather/night-clouds.png';
+import rain from '../assets/weather/rain.png';
+
+
 const localizer = momentLocalizer(moment)
 
 type CalendarEvent = EventItem;
@@ -72,10 +81,9 @@ export default function CombinedCalendar() {
     const weatherData = event.data[timeOfDay];
 
     return (
-      <div className={`h-full w-full ${getWeatherColor(weatherData?.condition || '')} bg-opacity-50 flex items-center justify-center`}>
-        <span className="text-2xl">{getWeatherEmoji(weatherData?.condition || '')}</span>
+      // <div className={`h-full w-full ${getWeatherColor(weatherData?.condition || '')} bg-opacity-50 flex items-center justify-center`}>
         <span className="ml-2">{weatherData?.temperature}°C</span>
-      </div>
+      // </div>
     );
   };
 
@@ -132,6 +140,44 @@ export default function CombinedCalendar() {
     setIsWeatherModalOpen(false)
   }
 
+  const slotPropGetter = useCallback(
+    (date: Date) => {
+      const hour = date.getHours();
+      
+      let backgroundImage = '';
+      if (hour < 6) {
+        backgroundImage = `url(${nightClear})`
+      } else if (hour < 12) {
+        backgroundImage = `url(${clouds})`
+      } else if (hour < 18) {
+        backgroundImage = `url(${rain})`
+      } else {
+        backgroundImage = `url(${nightClouds})`
+      }
+  
+      return {
+        style: {
+          backgroundImage,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        },
+      };
+    },
+    []
+  );
+
+
+  const slotGroupPropGetter = useCallback(
+    () => ({
+      style: {
+        minHeight: 75,
+      },
+    }),
+    []
+  )
+
+  const scrollToTime = new Date('2024-11-28T08:00:00');
   return (
     <div className="h-screen p-4 bg-gray-100">
       <div className="mb-4 flex space-x-2">
@@ -149,21 +195,26 @@ export default function CombinedCalendar() {
         </button>
       </div>
       
+{/* This is the calendar being displayed */}
       <DnDCalendar
         localizer={localizer}
         events={events}
         //@ts-ignore
         backgroundEvents={weatherEvents}
+        slotPropGetter={slotPropGetter}
+        slotGroupPropGetter={slotGroupPropGetter}
+        scrollToTime={scrollToTime}
         onEventDrop={onEventDrop}
         onEventResize={onEventResize}
+        step={60}
+        timeslots={1}
         resizable
         selectable
         onSelectSlot={handleSelectSlot}
         style={{ height: 'calc(100% - 80px)' }}
         defaultView="week"
         views={['week', 'day']}
-        min={new Date(2022, 9, 10, 8, 0)} // October 10, 2022, 8:00 AM
-        max={new Date(2022, 9, 10, 23, 0)} // October 10, 2022, 11:00 PM
+
         className="bg-white shadow-lg rounded-lg overflow-hidden mt-2"
         components={{
           event: EventComponent,
