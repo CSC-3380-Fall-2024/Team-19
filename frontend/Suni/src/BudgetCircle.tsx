@@ -89,7 +89,7 @@ const generateBudgetData = (events: EventItem[]): BudgetItem[] => {
 // Generate the initial data dynamically from the EVENTS array
 const INITIAL_DATA: BudgetItem[] = generateBudgetData(EVENTS);
 
-const renderActiveShape = (props: any) => {
+const renderActiveShape = (props: any, totalBudget: number) => {
   const RADIAN = Math.PI / 180;
   const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
   const sin = Math.sin(-RADIAN * midAngle);
@@ -105,7 +105,8 @@ const renderActiveShape = (props: any) => {
   return (
     <g>
       <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-        {payload.name}
+      
+      {payload.name} {/* Display the name of the budget item being selected in the center */}
       </text>
       <Sector
         cx={cx}
@@ -146,16 +147,16 @@ const BudgetChart: React.FC<BudgetChartProps> = ({ initialData = INITIAL_DATA })
   const totalBudget = data.reduce((sum, item) => sum + item.value, 0);
 
   return (
-    <div className="w-[500px] h-[755px] bg-gray-800 p-5 rounded-xl">
-      <h2 className="text-white text-center text-2xl mb-5">Itinerary Budget</h2>
-      <div className="text-white text-center mb">
+    <div className="w-[490px] h-[450px] bg-gray-800 p-5 rounded-xl"> {/* Default: w-500px / h-755px (Min: w-490-500 / h-500px ) */}
+      {/* <h2 className="text-white text-center text-2xl mb-5">Itinerary Budget</h2> Idea: remove itenerary top and default show budget # in middle until clicked up */}
+      {/* <div className="text-white text-center mb">
         Total Budget: ${totalBudget}
-      </div>
+      </div> */}
       <ResponsiveContainer>
         <PieChart>
           <Pie
             activeIndex={activeIndex}
-            activeShape={renderActiveShape}
+            activeShape={(props: any) => renderActiveShape(props, totalBudget)}
             data={data}
             cx="50%"
             cy="50%"
@@ -179,3 +180,72 @@ const BudgetChart: React.FC<BudgetChartProps> = ({ initialData = INITIAL_DATA })
 };
 
 export default BudgetChart;
+
+
+
+//         {/* Display the name or total budget */}
+//         <text x={cx} y={cy} dy={-10} textAnchor="middle" fill="#fff">
+//           {activeIndex !== undefined ? payload.name : `$${totalBudget}`}
+//         </text>
+//         {/* Display the value */}
+//         {activeIndex !== undefined && (
+//           <text x={cx} y={cy} dy={10} textAnchor="middle" fill="#999">
+//             ${value}
+//           </text>
+//         )}
+//         <Sector
+//           cx={cx}
+//           cy={cy}
+//           innerRadius={innerRadius}
+//           outerRadius={outerRadius}
+//           startAngle={startAngle}
+//           endAngle={endAngle}
+//           fill={fill}
+//         />
+//         {activeIndex !== undefined && (
+//           <Sector
+//             cx={cx}
+//             cy={cy}
+//             innerRadius={outerRadius + 6}
+//             outerRadius={outerRadius + 10}
+//             startAngle={startAngle}
+//             endAngle={endAngle}
+//             fill={fill}
+//           />
+//         )}
+//       </g>
+//     );
+//   };
+
+//   return (
+//     <div className="w-[490px] h-[500px] bg-gray-800 p-5 rounded-xl">
+//       <h2 className="text-white text-center text-2xl mb-5">Itinerary Budget</h2>
+//       <div className="text-white text-center mb-3">
+//         Total Budget: ${totalBudget}
+//       </div>
+//       <ResponsiveContainer>
+//         <PieChart>
+//           <Pie
+//             activeIndex={activeIndex}
+//             activeShape={renderActiveShape}
+//             data={data}
+//             cx="50%"
+//             cy="50%"
+//             innerRadius={60}
+//             outerRadius={100}
+//             dataKey="value"
+//             onMouseEnter={onPieEnter}
+//             onMouseLeave={onPieLeave} // Reset to default on mouse leave
+//           >
+//             {data.map((entry, index) => (
+//               <Cell key={`cell-${index}`} fill={entry.color || COLORS[index % COLORS.length]} />
+//             ))}
+//           </Pie>
+//           <Tooltip formatter={(value) => [`$${value}`, 'Value']} />
+//         </PieChart>
+//       </ResponsiveContainer>
+//     </div>
+//   );
+// };
+
+// export default BudgetChart;

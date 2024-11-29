@@ -12,7 +12,7 @@ import ActivityEvent from './events/ActivityEvent'
 import EntertainmentEvent from './events/EntertainmentEvent'
 import TransportationEvent from './events/TransportationEvent'
 import AddEvent from './events/AddEvent'
-import AddWeatherEventModal from './weather/AddWeatherEventModel'
+// import AddWeatherEventModal from './weather/AddWeatherEventModel'
 
 import clouds from '../assets/backgrounds/clouds.png';
 import morningClear from '../assets/weather/morning-clear.png';
@@ -135,27 +135,34 @@ export default function CombinedCalendar() {
     setIsAddModalOpen(false);
   }
 
-  const handleAddWeatherEvent = (newEvent: WeatherEventItem) => {
-    setWeatherEvents((prev) => [...prev, newEvent])
-    setIsWeatherModalOpen(false)
-  }
+  // const handleAddWeatherEvent = (newEvent: WeatherEventItem) => {
+  //   setWeatherEvents((prev) => [...prev, newEvent])
+  //   setIsWeatherModalOpen(false)
+  // }
 
   const slotPropGetter = useCallback(
     (date: Date) => {
       const hour = date.getHours();
       
       let backgroundImage = '';
+      let textColorClass = ''; // set rbc-label text color 
       if (hour < 6) {
         backgroundImage = `url(${nightClear})`
+        textColorClass = 'text-white'; 
       } else if (hour < 12) {
         backgroundImage = `url(${clouds})`
+        textColorClass = 'text-black'; 
       } else if (hour < 18) {
         backgroundImage = `url(${rain})`
+        textColorClass = 'text-black'; 
+
       } else {
         backgroundImage = `url(${nightClouds})`
+        textColorClass = 'text-white'; 
       }
   
       return {
+        className: `${textColorClass}`, // change rbc-label color to fit with background
         style: {
           backgroundImage,
           backgroundSize: 'cover',
@@ -181,18 +188,13 @@ export default function CombinedCalendar() {
   return (
     <div className="h-screen p-4 bg-gray-100">
       <div className="mb-4 flex space-x-2">
-        <button
-          onClick={() => setIsAddModalOpen(true)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
-          Add Event
-        </button>
-        <button
+
+        {/* <button
           onClick={() => setIsWeatherModalOpen(true)}
           className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
         >
           Add Weather Event
-        </button>
+        </button> */}
       </div>
       
 {/* This is the calendar being displayed */}
@@ -231,11 +233,11 @@ export default function CombinedCalendar() {
         initialEndTime={selectedSlot?.end}
       />
 
-      <AddWeatherEventModal
+      {/* <AddWeatherEventModal
         isOpen={isWeatherModalOpen}
         onClose={() => setIsWeatherModalOpen(false)}
         onAdd={handleAddWeatherEvent}
-      />
+      /> */}
     </div>
   )
 }
