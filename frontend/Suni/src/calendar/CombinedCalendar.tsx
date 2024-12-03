@@ -16,7 +16,7 @@ import AddEvent from './events/AddEvent'
 
 import clouds from '../assets/backgrounds/clouds.png';
 import morningClear from '../assets/weather/morning-clear.png';
-import middayClear from '../assets/weather/midday-clear.png';
+import middayClear from '../assets/weather/midday-clear.jpg';
 import afternoonClear from '../assets/weather/afternoon-clear.png';
 import nightClear from  '../assets/weather/night-clear.png';
 import nightClouds from '../assets/weather/night-clouds.png';
@@ -65,17 +65,17 @@ export default function CombinedCalendar() {
       }
     };
 
-    const getWeatherEmoji = (condition: string) => {
-      switch (condition) {
-        case "Sunny": return "☀️";
-        case "Partly Cloudy": return "⛅";
-        case "Cloudy": return "☁️";
-        case "Rainy": return "🌧️";
-        case "Stormy": return "⛈️";
-        case "Clear": return "🌙";
-        default: return "";
-      }
-    };
+    // const getWeatherEmoji = (condition: string) => {
+    //   switch (condition) {
+    //     case "Sunny": return "☀️";
+    //     case "Partly Cloudy": return "⛅";
+    //     case "Cloudy": return "☁️";
+    //     case "Rainy": return "🌧️";
+    //     case "Stormy": return "⛈️";
+    //     case "Clear": return "🌙";
+    //     default: return "";
+    //   }
+    // };
 
     const timeOfDay = Object.keys(event.data)[0] as keyof WeatherEventItem['data'];
     const weatherData = event.data[timeOfDay];
@@ -135,10 +135,7 @@ export default function CombinedCalendar() {
     setIsAddModalOpen(false);
   }
 
-  // const handleAddWeatherEvent = (newEvent: WeatherEventItem) => {
-  //   setWeatherEvents((prev) => [...prev, newEvent])
-  //   setIsWeatherModalOpen(false)
-  // }
+
 
   const slotPropGetter = useCallback(
     (date: Date) => {

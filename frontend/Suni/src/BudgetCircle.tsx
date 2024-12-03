@@ -55,7 +55,7 @@ const generateBudgetData = (events: EventItem[]): BudgetItem[] => {
     if (activity) {
       budgetData.push({
         name: activity.name,
-        value: 50, // Placeholder value for activity
+        value: activity.price, // Placeholder value for activity
         color: COLORS[1], // Assign a color
       });
     }
