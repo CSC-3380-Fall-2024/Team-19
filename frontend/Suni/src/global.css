@@ -5,5 +5,8 @@ html, body {
     color: rbg(209, 220, 240);
     overflow: hidden;
     height: 100%;
+
+    overscroll-behavior: none;
+
 }
 
