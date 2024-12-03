@@ -8,7 +8,7 @@ export const WEATHEREVENTS: WeatherEventItem[] = [
   end: moment("2024-11-11T11:00:00").toDate(),
     data: {
       morning: {
-        id: 1,
+        temperature: 70,
         weather: "Clear",
       }
     },
@@ -19,7 +19,7 @@ export const WEATHEREVENTS: WeatherEventItem[] = [
     end: moment("2024-11-11T16:00:00").toDate(),
     data: {
       midday: {
-        id: 1,
+        temperature: 70,
         weather: "Rain",
       }
     },
@@ -30,7 +30,7 @@ export const WEATHEREVENTS: WeatherEventItem[] = [
     end: moment("2024-11-11T19:00:00").toDate(),
     data: {
       morning: {
-        id: 1,
+        temperature: 70,
         weather: "Clear",
       }
     },
@@ -41,7 +41,7 @@ export const WEATHEREVENTS: WeatherEventItem[] = [
     end: moment("2024-11-11T22:00:00").toDate(),
     data: {
       morning: {
-        id: 1,
+        temperature: 70,
         weather: "Clear",
       }
     },

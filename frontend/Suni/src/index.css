@@ -163,26 +163,46 @@ nav li.hover {
   background-image: url("./assets/backgrounds/clear-morning.png");
 } */
 
-/* morning-bg midday-bg afternoon-bg night-bg */
-.morning-bg {
-  background-image: url("./assets/backgrounds/clear-morning.png");
+.rbc-time-column {
+  min-width: 100px;
 }
 
-.midday-bg {
-  background-image: url("./assets/backgrounds/clouds.png");
+.rbc-timeslot-group {
+  min-height: 100px;
 }
 
-.afternoon-bg {
-  background-image: url("./assets/backgrounds/clear-afternoon.png");
+.rbc-time-slot {
+  border-top: none;
 }
 
-.night-bg {
-  background-image: url("./assets/backgrounds/clear-night.png");
+.rbc-day-slot .rbc-time-slot {
+  border-top: 1px solid #f0f0f0;
 }
 
-/* .rbc-background-event {
-  
-} */
+.rbc-time-view {
+  border: none;
+}
+
+.rbc-time-content {
+  border-top: 1px solid #f0f0f0;
+}
+
+.rbc-time-header-content {
+  border-left: none;
+}
+
+.rbc-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.rbc-allday-cell {
+  display: none;
+}
+
+.rbc-time-view .rbc-header {
+  border-left: none;
+}
+
 
 .rbc-event-content {
   color: black;

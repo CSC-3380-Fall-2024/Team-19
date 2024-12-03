@@ -11,7 +11,7 @@ function Navbar() {
 
   return (
       <header className="nav-color">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8" aria-label="Global">
           {/* Logo Section */}
           <div className="flex lg:flex-1">
             <Link to="/" className="-m-1.5 p-1.5 hover:border-2 hover:bg-gray-300 rounded-lg">
