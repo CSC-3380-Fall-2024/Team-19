@@ -12,6 +12,7 @@ export default {
         'mid-blue': '#D7E5F0',
         'drk-mid-blue': '#B6CFE3',
         'drk-blue': '#24425C',
+        'drk-2-blue': '#3F719E',
         'btm-blue': '#A5C3DD',
       }
     },
