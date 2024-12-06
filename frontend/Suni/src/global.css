@@ -3,7 +3,7 @@ html, body {
     margin: 0;
     overflow-y:auto;
     color: rbg(209, 220, 240);
-    overflow: hidden;
+    overflow: auto;
     height: 100%;
 
     overscroll-behavior: none;

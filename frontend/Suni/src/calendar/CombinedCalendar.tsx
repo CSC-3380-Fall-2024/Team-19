@@ -144,7 +144,7 @@ export default function CombinedCalendar() {
 
   const scrollToTime = new Date('2024-11-28T08:00:00');
   return (
-    <div className="h-screen p-4 bg-gray-100">
+    <div className="h-[calc(100vh-15vh)] bg-sky-blue"> {/* Default: h-755px (Min: h-500px ) / outside box  */}
       
 {/* This is the calendar being displayed */}
       <DnDCalendar
@@ -160,11 +160,12 @@ export default function CombinedCalendar() {
         resizable
         selectable
         onSelectSlot={handleSelectSlot}
-        style={{ height: 'calc(100% - 80px)' }}
+        // style={{ height: 'calc(100% - 80px)' }}
         defaultView="week"
         views={['week', 'day']}
+        //toolbar={false}
 
-        className="bg-white shadow-lg rounded-lg overflow-hidden mt-2"
+        className="bg-white shadow-lg rounded-lg overflow-auto mt-2"
         components={{
           event: EventComponent,
         }}

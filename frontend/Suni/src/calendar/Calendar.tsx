@@ -7,7 +7,6 @@ import {
 } from "react-big-calendar";
 import moment from "moment";
 import "../index.css";
-//import { EVENTS } from ".events/eventConstants.ts";
 
 const localizer = momentLocalizer(moment);
 

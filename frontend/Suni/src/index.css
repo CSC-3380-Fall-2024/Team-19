@@ -94,6 +94,35 @@
 .rbc-allday-cell { 
   display: none;
 }
+/* Styling on toolbar (header/ top) */
+.rbc-toolbar {
+  padding-top: 15px;
+
+}
+/* Left side header buttons(today, back, next) && week / day on right side */
+.rbc-btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+/* Styling on button actively selected (greyed out / current page) */
+.rbc-active {
+  
+  color: white;
+}
+
+/*Header Center Date (December 01- 07) */
+.rbc-toolbar-label {
+  font-size: 20px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 /* Event Styles */
 
