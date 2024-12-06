@@ -1,6 +1,6 @@
 import BudgetCircle from '../BudgetCircle.tsx'
 
-import cloudBackground from '../assets/backgrounds/clouds.png';
+import cloudBackground from '../assets/backgrounds/clouds-bg.png';
 
 import CombinedCalendar from '../calendar/CombinedCalendar.tsx';
 

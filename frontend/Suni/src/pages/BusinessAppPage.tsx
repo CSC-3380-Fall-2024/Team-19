@@ -1,6 +1,6 @@
 import BusinessForm from '../Form.tsx';
 
-import cloudBackground from '../assets/backgrounds/clouds.png';
+import cloudBackground from '../assets/backgrounds/clouds-bg.png';
 
 
 
