@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
               <div
                 className={`z-50 ${
                   isUserDropdownOpen ? '' : 'hidden'
-                } absolute right-0 mt-2 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow bg-sky-blue`}
+                } absolute right-0 mt-2 w-48 text-base list-none divide-y divide-gray-100 rounded-lg shadow bg-white`}
                 id="user-dropdown"
               >
                 <div className="px-4 py-3">
@@ -113,7 +113,7 @@ const Navbar: React.FC = () => {
           </button>
         </div>
         <div className={`items-center justify-between ${isMobileMenuOpen ? '' : 'hidden'} w-full md:flex md:w-auto md:order-1`} id="navbar-user">
-          <ul className="bg-sky-blue flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:sky-blue"> {/*Border box for main links(both in main and mini menu*/}
+          <ul className="bg-sky-blue flex flex-col font-medium p-4 md:p-0 mt-4  rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:sky-blue"> {/*Border box for main links(both in main and mini menu*/}
             <li>
               <Link to="/quizPage" className="block py-2 px-3 text-drk-blue rounded hover:bg-blue-100 md:hover:bg-transparent md:hover:text-drk-2-blue md:p-0 ">
                 Quiz

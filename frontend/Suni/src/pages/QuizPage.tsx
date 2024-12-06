@@ -1,7 +1,7 @@
 //import PopOut from '../PopOut.tsx'
 import Quiz from '../Quiz.tsx'
 
-import cloudBackground from '../assets/backgrounds/clouds.png'; //Cloud Background
+import cloudBackground from '../assets/backgrounds/clouds-bg.png'; //Cloud Background
 
 
 function QuizPage() {
