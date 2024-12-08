@@ -5,9 +5,7 @@ import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider.tsx";
 import useLogout from "../hooks/useLogout.ts";
 
-
 import cloudBackground from '../assets/backgrounds/clouds-bg.png'; //Cloud Background
-
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -19,8 +17,6 @@ export default function AccountPage() {
   const {auth, setAuth } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-
 
   // Login form state
   const [loginUsername, setLoginUsername] = useState('');
@@ -39,6 +35,15 @@ export default function AccountPage() {
   const [validName, setValidName] = useState(false);
   const [validPwd, setValidPwd] = useState(false);
   const [validMatch, setValidMatch] = useState(false);
+
+  // Tips visibility
+  const [showUsernameTip, setShowUsernameTip] = useState(false);
+  const [showPasswordTip, setShowPasswordTip] = useState(false);
+  const [showEmailTip, setShowEmailTip] = useState(false);
+
+  // Show/hide password toggle for signup password
+  const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Check if user is already authenticated
   useEffect(() => {
@@ -61,6 +66,46 @@ export default function AccountPage() {
     setRegisterError('');
   }, [username, signupEmail, signupPassword, confirmPassword]);
 
+  // Username requirements
+  const usernameRequirements = [
+    {
+      text: "Must start with a letter",
+      isMet: username ? /^[A-Za-z]/.test(username) : false
+    },
+    {
+      text: "Must be 4-24 characters",
+      isMet: username ? username.length >= 4 && username.length <= 24 : false
+    },
+    {
+      text: "Only letters, numbers, underscores, and hyphens allowed",
+      isMet: username ? /^[A-Za-z][A-Za-z0-9-_]{3,23}$/.test(username) : false
+    }
+  ];
+
+  // Password requirements
+  const passwordRequirements = [
+    {
+      text: "8-24 characters",
+      isMet: signupPassword ? signupPassword.length >= 8 && signupPassword.length <= 24 : false
+    },
+    {
+      text: "At least one lowercase letter",
+      isMet: signupPassword ? /[a-z]/.test(signupPassword) : false
+    },
+    {
+      text: "At least one uppercase letter",
+      isMet: signupPassword ? /[A-Z]/.test(signupPassword) : false
+    },
+    {
+      text: "At least one digit",
+      isMet: signupPassword ? /[0-9]/.test(signupPassword) : false
+    },
+    {
+      text: "At least one special character (!@#$%)",
+      isMet: signupPassword ? /[!@#$%]/.test(signupPassword) : false
+    }
+  ];
+
   // Handle login form submission
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,7 +116,6 @@ export default function AccountPage() {
             headers: { 'content-type': 'application/json'},
             withCredentials: true
           },
-        
       );
       
       const accessToken = response?.data?.access;
@@ -119,8 +163,7 @@ export default function AccountPage() {
         withCredentials: true
       });
         
-        console.log('Registration successful:', response.data);
-      
+      console.log('Registration successful:', response.data);
       setSuccess(true);
       setUsername('');
       setSignupEmail('');
@@ -153,7 +196,7 @@ export default function AccountPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl">
-          <h2 className="text-2xl font-bold mb-4">Welcome, {auth?.user|| 'User'}!</h2>
+          <h2 className="text-2xl font-bold mb-4">Welcome, {auth?.user || 'User'}!</h2>
           <p className="mb-4">You are now logged in.</p>
           <button
             onClick={signOut}
@@ -175,11 +218,9 @@ export default function AccountPage() {
       }}>
         <div className="relative min-h-screen w-full">
           <div className="container mx-auto p-4">
-            {/* Content Start */}
               <div className="min-h-screen relative overflow-hidden">
                 <div className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
                   <div className="w-full max-w-md space-y-8 bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl">
-                    {/* Your existing login/signup form JSX */}
                     <div className="flex space-x-2 mb-8">
                       <button
                         className={`flex-1 py-2 px-4 text-center rounded-md transition-colors ${activeTab === 'login' ? 'bg-sky-500 text-white' : 'bg-gray-200 text-gray-700'}`}
@@ -253,10 +294,24 @@ export default function AccountPage() {
                               type="text"
                               value={username}
                               onChange={(e) => setUsername(e.target.value)}
+                              onFocus={() => setShowUsernameTip(true)}
+                              onBlur={() => setShowUsernameTip(false)}
                               required
                               className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                              placeholder="johndoe123"
+                              placeholder="JohnDoe123"
                             />
+                            {showUsernameTip && (
+                              <div className="text-gray-500 text-xs">
+                                <p>Username requirements:</p>
+                                <ul className="list-disc list-inside">
+                                  {usernameRequirements.map((req, index) => (
+                                    <li key={index} className={req.isMet ? 'text-green-600' : 'text-red-600'}>
+                                      {req.isMet ? 'Fulfilled: ' : 'Not Fulfilled: '} {req.text}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
                           </div>
                           <div className="space-y-2">
                             <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700">Email</label>
@@ -266,40 +321,78 @@ export default function AccountPage() {
                               type="email"
                               value={signupEmail}
                               onChange={(e) => setSignupEmail(e.target.value)}
+                              onFocus={() => setShowEmailTip(true)}
+                              onBlur={() => setShowEmailTip(false)}
                               required
                               className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
                               placeholder="hello@example.com"
                             />
+                            {showEmailTip && (
+                              <p className="text-gray-500 text-xs">
+                                Enter a valid email address (johndoe@example.com).
+                              </p>
+                            )}
                           </div>
                           <div className="space-y-2">
                             <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700">Password</label>
-                            <input
-                              id="signup-password"
-                              name="password"
-                              type="password"
-                              value={signupPassword}
-                              onChange={(e) => setSignupPassword(e.target.value)}
-                              required
-                              className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                            />
+                            <div className="relative">
+                              <input
+                                id="signup-password"
+                                name="password"
+                                type={showSignupPassword ? "text" : "password"}
+                                value={signupPassword}
+                                onChange={(e) => setSignupPassword(e.target.value)}
+                                onFocus={() => setShowPasswordTip(true)}
+                                onBlur={() => setShowPasswordTip(false)}
+                                required
+                                className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+                              />
+                              <button
+                                type="button"
+                                className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-600"
+                                onClick={() => setShowSignupPassword(!showSignupPassword)}
+                              >
+                                {showSignupPassword ? 'Hide' : 'Show'}
+                              </button>
+                            </div>
+                            {showPasswordTip && (
+                              <div className="text-gray-500 text-xs">
+                                <p>Password requirements:</p>
+                                <ul className="list-disc list-inside">
+                                  {passwordRequirements.map((req, index) => (
+                                    <li key={index} className={req.isMet ? 'text-green-600' : 'text-red-600'}>
+                                      {req.isMet ? 'Fulfilled: ' : 'Not Fulfilled: '} {req.text}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
                           </div>
                           <div className="space-y-2">
                             <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-                            <input
-                              id="confirm-password"
-                              name="confirm-password"
-                              type="password"
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
-                              required
-                              className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
-                            />
+                            <div className="relative">
+                              <input
+                                id="confirm-password"
+                                name="confirm-password"
+                                type={showConfirmPassword ? "text" : "password"}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                                className="text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+                              />
+                              <button
+                                type="button"
+                                className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-600"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                              >
+                                {showConfirmPassword ? 'Hide' : 'Show'}
+                              </button>
+                            </div>
                           </div>
                           {registerError && <p className="text-red-500">{registerError}</p>}
                           <button
                             type="submit"
                             className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                            //disabled={!validName || !validPwd || !validMatch}
                           >
                             Create Account
                           </button>
@@ -310,7 +403,6 @@ export default function AccountPage() {
                   </div>
                 </div>
               </div>
-            {/* Content End*/}
             </div>
           </div>
         </div>
