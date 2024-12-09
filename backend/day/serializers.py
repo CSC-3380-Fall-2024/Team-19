@@ -1,19 +1,22 @@
+from typing import Type, List
+
 from rest_framework import serializers
 from activity.serializer import DetailedActivitySerializer
 
 from .models import *
+from .models import DayActivity, Day
 
 
 class DayActivitySerializer(serializers.ModelSerializer):
-    activity = DetailedActivitySerializer(read_only=True)
+    activity: DetailedActivitySerializer = DetailedActivitySerializer(read_only=True)
     class Meta:
-        model = DayActivity
-        fields = ['activity', 'start_time', 'end_time']
+        model: Type[DayActivity] = DayActivity
+        fields: list[str] = ['activity', 'start_time', 'end_time']
 
 class DaySerializer(serializers.ModelSerializer):
-    activities = DayActivitySerializer(many=True, read_only=True)
+    activities: DayActivitySerializer = DayActivitySerializer(many=True, read_only=True)
     class Meta:
-        model = Day
-        fields = ['date', 'activities']
+        model: Type[Day] = Day
+        fields: list[str] = ['date', 'activities']
 
 
