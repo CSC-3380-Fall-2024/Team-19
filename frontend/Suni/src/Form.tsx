@@ -1,28 +1,43 @@
 import React, { useState } from 'react';
 
 interface FormData {
-  businessName: string;
-  email: string;
+  name: string;
+  location: string;
+  hours: string;
+  company: string;
   phone: string;
-  address: string;
-  website: string;
+  email: string;
+  supportUrl: string;
+  category: string;
+  services: string;
+  tags: string[];
 }
 
 interface FormErrors {
-  businessName?: string;
-  email?: string;
+  name?: string;
+  location?: string;
+  hours?: string;
+  company?: string;
   phone?: string;
-  address?: string;
-  website?: string;
+  email?: string;
+  supportUrl?: string;
+  category?: string;
+  services?: string;
+  tags?: string[];
 }
 
 const BusinessForm = () => {
   const [formData, setFormData] = useState<FormData>({
-    businessName: '',
-    email: '',
+    name: '',
+    location: '',
+    hours: '',
+    company: '',
     phone: '',
-    address: '',
-    website: '',
+    email: '',
+    supportUrl: '',
+    category: '',
+    services: '',
+    tags: ['', '', '', '', ''],
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -30,47 +45,30 @@ const BusinessForm = () => {
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.location.trim()) newErrors.location = 'Address is required';
+    if (!formData.hours.trim()) newErrors.hours = 'Hours are required';
+    if (!formData.company.trim()) newErrors.company = 'Company/Franchise is required';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Valid email is required';
+    if (!formData.supportUrl.trim()) newErrors.supportUrl = 'Support page URL is required';
+    if (!formData.category.trim()) newErrors.category = 'Category is required';
+    if (!formData.services.trim()) newErrors.services = 'Services are required';
     
-    if (!formData.businessName.trim()) {
-      newErrors.businessName = 'Business name is required';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-      newErrors.phone = 'Phone number must be 10 digits';
-    }
-
-    if (!formData.address.trim()) {
-      newErrors.address = 'Address is required';
-    }
-
-    if (!formData.website.trim()) {
-      newErrors.website = 'Website is required';
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // clear error when user starts typing
-    if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: undefined
-      }));
+    if (name.startsWith('tags[')) {
+      const index = parseInt(name.match(/\d+/)![0]);
+      const updatedTags = [...formData.tags];
+      updatedTags[index] = value;
+      setFormData(prev => ({ ...prev, tags: updatedTags }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
@@ -79,17 +77,7 @@ const BusinessForm = () => {
     if (validateForm()) {
       setIsSubmitting(true);
       try {
-        // API call here
         console.log('Form submitted:', formData);
-
-        // reset form
-        setFormData({
-          businessName: '',
-          email: '',
-          phone: '',
-          address: '',
-          website: '',
-        });
       } catch (error) {
         console.error('Submission error:', error);
       } finally {
@@ -98,111 +86,160 @@ const BusinessForm = () => {
     }
   };
 
-  const inputClassName = (fieldName: keyof FormErrors) => `
-    appearance-none block w-full bg-gray-200 text-gray-700 border 
-    ${errors[fieldName] ? 'border-red-500' : 'border-gray-200'} 
-    rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white
-  `;
-
-  const labelClassName = "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2";
-
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto p-6">
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto p-8 bg-gray-100 rounded-lg shadow-lg">
+      <h2 className="text-xl font-bold mb-6 text-gray-800">Business Registration</h2>
+
       <div className="mb-6">
-        <label htmlFor="businessName" className={labelClassName}>
-          Business Name
-        </label>
-        <input
-          id="businessName"
-          name="businessName"
-          type="text"
-          placeholder="Acme Corporation"
-          value={formData.businessName}
-          onChange={handleChange}
-          className={inputClassName('businessName')}
-        />
-        {errors.businessName && (
-          <p className="text-red-500 text-xs italic">{errors.businessName}</p>
-        )}
+        <h3 className="text-base font-semibold mb-4">Business Information</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Business Name"
+            />
+            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+          </div>
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Location</label>
+            <input
+              type="text"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Location"
+            />
+            {errors.location && <p className="text-red-500 text-xs">{errors.location}</p>}
+          </div>
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Hours</label>
+            <input
+              type="text"
+              name="hours"
+              value={formData.hours}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Hours"
+            />
+            {errors.hours && <p className="text-red-500 text-xs">{errors.hours}</p>}
+          </div>
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Company/Franchise</label>
+            <input
+              type="text"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Company/Franchise"
+            />
+            {errors.company && <p className="text-red-500 text-xs">{errors.company}</p>}
+          </div>
+        </div>
       </div>
 
       <div className="mb-6">
-        <label htmlFor="email" className={labelClassName}>
-          Email Address
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="contact@business.com"
-          value={formData.email}
-          onChange={handleChange}
-          className={inputClassName('email')}
-        />
-        {errors.email && (
-          <p className="text-red-500 text-xs italic">{errors.email}</p>
-        )}
+        <h3 className="text-base font-semibold mb-4">Contact Information</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Phone Number</label>
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Phone Number"
+            />
+            {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
+          </div>
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Email Address"
+            />
+            {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+          </div>
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Support Page URL</label>
+            <input
+              type="url"
+              name="supportUrl"
+              value={formData.supportUrl}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Support Page URL"
+            />
+            {errors.supportUrl && <p className="text-red-500 text-xs">{errors.supportUrl}</p>}
+          </div>
+        </div>
       </div>
 
       <div className="mb-6">
-        <label htmlFor="phone" className={labelClassName}>
-          Phone Number
-        </label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          placeholder="(555) 555-5555"
-          value={formData.phone}
-          onChange={handleChange}
-          className={inputClassName('phone')}
-        />
-        {errors.phone && (
-          <p className="text-red-500 text-xs italic">{errors.phone}</p>
-        )}
+        <h3 className="text-base font-semibold mb-4">Categorize Your Business</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Category</label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Category"
+            />
+            {errors.category && <p className="text-red-500 text-xs">{errors.category}</p>}
+          </div>
+          <div>
+            <label className="block text-gray-700 font-semibold mb-2">Services</label>
+            <input
+              type="text"
+              name="services"
+              value={formData.services}
+              onChange={handleChange}
+              className="w-full px-2 py-1 border rounded-lg"
+              placeholder="Services"
+            />
+            {errors.services && <p className="text-red-500 text-xs">{errors.services}</p>}
+          </div>
+        </div>
       </div>
 
       <div className="mb-6">
-        <label htmlFor="address" className={labelClassName}>
-          Business Address
-        </label>
-        <input
-          id="address"
-          name="address"
-          type="text"
-          placeholder="123 Business St"
-          value={formData.address}
-          onChange={handleChange}
-          className={inputClassName('address')}
-        />
-        {errors.address && (
-          <p className="text-red-500 text-xs italic">{errors.address}</p>
-        )}
+        <h3 className="text-base font-semibold mb-4">Business Tags</h3>
+        <div className="grid grid-cols-5 gap-2">
+          {formData.tags.map((tag, index) => (
+            <div key={index}>
+              <label className="block text-gray-700 font-semibold mb-2">Tag {index + 1}</label>
+              <input
+                type="text"
+                name={`tags[${index}]`}
+                value={tag}
+                onChange={handleChange}
+                className="w-full px-2 py-1 border rounded-lg"
+                placeholder={`Tag ${index + 1}`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="mb-6">
-        <label htmlFor="website" className={labelClassName}>
-          Website
-        </label>
-        <input
-          id="website"
-          name="website"
-          type="text"
-          placeholder="example.com"
-          value={formData.website}
-          onChange={handleChange}
-          className={inputClassName('website')}
-        />
-        {errors.website && (
-          <p className="text-red-500 text-xs italic">{errors.website}</p>
-        )}
-      </div>
-
-      <div className="flex items-center justify-end">
+      <div className="mt-6">
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
+          className={`w-full py-1 px-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75
             ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
