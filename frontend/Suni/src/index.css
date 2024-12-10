@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 /* Now using Tailwind CSS! */
+/* .nav {
+  overflow: auto;
+} */
 
 /*Start Navbar*/
 .nav-logo {

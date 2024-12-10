@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthProvider.tsx";
 import useLogout from "../hooks/useLogout.ts";
 
 
-import cloudBackground from '../assets/backgrounds/clouds.png'; //Cloud Background
+import cloudBackground from '../assets/backgrounds/clouds-bg.png'; //Cloud Background
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;

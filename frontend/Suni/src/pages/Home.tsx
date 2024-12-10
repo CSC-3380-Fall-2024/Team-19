@@ -1,7 +1,7 @@
 //import PopOut from '../PopOut.tsx' //to get imports/files from src, use ../
 import QuizPopUp from '../QuizPopUp.tsx'
 
-import cloudBackground from '../assets/backgrounds/clouds.png';
+import cloudBackground from '../assets/backgrounds/clouds-bg.png';
 
 
 function Home() {
