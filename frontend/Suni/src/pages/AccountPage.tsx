@@ -4,8 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider.tsx";
 import useLogout from "../hooks/useLogout.ts";
-
-import cloudBackground from '../assets/backgrounds/clouds-bg.png'; //Cloud Background
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import cloudBackground from '../assets/backgrounds/clouds-bg.png'; // Cloud Background
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -15,6 +15,9 @@ const LOGIN_URL = "/auth/login/"
 export default function AccountPage() {
   const logout = useLogout();
   const {auth, setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [activeTab, setActiveTab] = useState('login');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -36,12 +39,12 @@ export default function AccountPage() {
   const [validPwd, setValidPwd] = useState(false);
   const [validMatch, setValidMatch] = useState(false);
 
-  // Tips visibility
+  // Tips for credentials
   const [showUsernameTip, setShowUsernameTip] = useState(false);
   const [showPasswordTip, setShowPasswordTip] = useState(false);
   const [showEmailTip, setShowEmailTip] = useState(false);
 
-  // Show/hide password toggle for signup password
+  // Show or hide password for signup 
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -120,14 +123,16 @@ export default function AccountPage() {
       
       const accessToken = response?.data?.access;
       const decodedAccessToken = jwtDecode(accessToken);
-      const user = decodedAccessToken.username
-      const role = decodedAccessToken.role
+      const user = decodedAccessToken.username;
+      const role = decodedAccessToken.role;
 
       setAuth({accessToken, user, role});
 
       setLoginUsername('');
       setLoginPassword('');
       setIsAuthenticated(true);
+
+      navigate(from, {replace: true});
 
     } catch (err: any) {
       console.log(err)
@@ -170,7 +175,7 @@ export default function AccountPage() {
       setSignupPassword(''); 
       setConfirmPassword('');
       
-      // Automatically switch to login tab after successful registration
+      // Automatically switches to login tab if registration is successful
       setTimeout(() => {
         setActiveTab('login');
       }, 2000);
@@ -191,7 +196,7 @@ export default function AccountPage() {
     setIsAuthenticated(false);
   }
 
-  // If authenticated, show the authenticated view
+  // Checks if authenticated, show the authenticated view if so
   if (isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -209,7 +214,7 @@ export default function AccountPage() {
     );
   }
 
-  // If not authenticated, show the login/signup form
+  // Checks if not authenticated, shows the login/signup form if not
   return (
     <>
       <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"
