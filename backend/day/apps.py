@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class DayConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'day'
+    default_auto_field: str = 'django.db.models.BigAutoField'
+    name: str = 'day'

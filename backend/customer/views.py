@@ -1,3 +1,8 @@
+from typing import Type, List
+
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AnonymousUser
+from django.db.models import QuerySet
 
 from rest_framework import generics, permissions
 from rest_framework.exceptions import PermissionDenied
@@ -8,11 +13,11 @@ from .serializers import CustomerSerializer
 
 
 class RetrieveCustomerInfo(generics.ListAPIView):
-    serializer_class = CustomerSerializer
-    permission_classes = [AllowAny]
+    serializer_class: Type[CustomerSerializer] = CustomerSerializer
+    permission_classes: list[Type[AllowAny]] = [AllowAny]
 
     def get_queryset(self):
-        user = self.request.user
-        queryset = CustomerProfile.objects.filter(user=user)
+        user: AbstractBaseUser | AnonymousUser = self.request.user
+        queryset: QuerySet[CustomerProfile] = CustomerProfile.objects.filter(user=user)
         return queryset
 
