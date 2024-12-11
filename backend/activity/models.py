@@ -9,17 +9,27 @@ from business.models import BusinessProfile
 # Create your models here.
 
 class Activity(models.Model):
+
     business: BusinessProfile = models.ForeignKey(BusinessProfile, on_delete=models.CASCADE, related_name='activities')
     activity_name: str = models.CharField(max_length=100)
     description: str = models.TextField()
     price: Decimal = models.DecimalField(max_digits=5, decimal_places=2)
     outdoors: bool = models.BooleanField(default=False)
+
+    ACTIVITY_TYPES_CHOICES: list[tuple[str, str]] = [
+        ('FOOD', 'Food'),
+        ('ACTIVITY', 'Activity'),
+        ('ENTERTAINMENT', 'Entertainment'),
+        ('TRANSPORTATION', 'Transportation'),
+    ]
     CATEGORY_CHOICES: list[tuple[str, str]] = [
         ('Adventure', 'Adventure'),
         ('Relaxation', 'Relaxation'),
         ('Dining', 'Dining'),
         ('Culture', 'Culture'),
     ]
+
+    type: str = models.CharField(max_length=50, choices=ACTIVITY_TYPES_CHOICES, null=True, blank=True)
     category: str = models.CharField(max_length=50, choices=CATEGORY_CHOICES, null=True, blank=True)
     image: ImageFieldFile = models.ImageField(upload_to='activity_images/', null=True, blank=True)
 
