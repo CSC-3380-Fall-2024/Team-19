@@ -74,35 +74,4 @@ For macOS
 (Tip: you will know its started when it shows a start time and the option to quit. Open the dev server in your browser and refresh, allowing the use of both front and backend together properly)
 
 Both of these README sections will be independently available within both the frontend and backend folder for easy access
-=======
-How to Set Up the Backend:
-
-Step 1: Install Python Download and install Python (>=3.x) from python.org.
-
-Step 2: Clone the Project
-Pull the backend repository from GitHub:
-`git clone https://github.com/Team-19`
-`cd backend`
-
-Step 3: Set Up a Virtual Environment
-Create a virtual environment:
-`python -m venv venv`
-
-Activate the virtual environment:
-- Mac/Linux: `source venv/bin/activate`
-- Windows: `venv\Scripts\activate`
-
-Step 4: Install Dependencies
-Install the required Python packages:
-`pip install -r requirements.txt`
-
-
-Step 6: Set Up the Database
-Run migrations to initialize the database schema:
-- `python manage.py makemigrations`
-- `python manage.py migrate`
-
-Step 7: Run the Development Server
-Start the server:
-`python manage.py runserver`
 
