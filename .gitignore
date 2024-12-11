@@ -1,13 +1,10 @@
 *.xml
 *.iml
-<<<<<<< HEAD
 *.pyc
 .idea
-=======
 .venv/
 .vscode/
 
->>>>>>> origin/dev
 
 /backend/.env
 frontend/Suni/node_modules

@@ -15,7 +15,6 @@ PyYAML>=6.0.2
 s3transfer>=0.10.3
 asgiref>=3.8.1
 sqlparse>=0.5.1
-mysqlclient>=2.2.5
 requests>=2.32.3
 typing_extensions>=4.12.2
 urllib3>=2.2.3

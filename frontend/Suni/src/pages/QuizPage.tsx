@@ -12,7 +12,7 @@ function QuizPage() {
           backgroundImage: `url(${cloudBackground})`
         }}>
           <div className="relative min-h-screen w-full">
-            <div className="container mx-auto p-4">
+            <div className="container mx-auto p-4 ">
               {/* Content Start */}
                 <Quiz/>
               {/* Content End*/}

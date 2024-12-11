@@ -58,6 +58,7 @@ export default function Component() {
   const [filteredDestinations, setFilteredDestinations] = useState<string[]>([])
   const suggestionRef = useRef<HTMLDivElement>(null)
 
+
   const steps = [
     'Location',
     'Date',
@@ -68,7 +69,6 @@ export default function Component() {
     'Meals',
     'Pick your Trip!'
   ]
-
 
 
   const handleNext = () => {
@@ -431,6 +431,7 @@ export default function Component() {
 
             {currentStep === steps.length - 1 && (
               <div className="mt-4 text-center">
+                {/* @ts-ignore */}
                 <button onClick={submitQuiz} className="rounded-lg bg-blue-500 px-8 py-2 font-semibold text-white shadow-md hover:bg-blue-600">
                   Finish Quiz
                 </button>

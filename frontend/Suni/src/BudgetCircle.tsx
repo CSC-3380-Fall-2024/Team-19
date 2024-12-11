@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, Sector } from 'recharts';
-import { EVENTS } from './calendar/events/eventConstants'; // Assuming EVENTS is imported from eventConstants.ts
-import { Food, Activity, Transportation, Entertainment, EventItem } from './calendar/events/eventTypes'; // Assuming these are your event types
+'use client'
 
-// Define the BudgetItem type
+import React, { useState, useCallback } from 'react'
+import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from 'recharts'
+import { EVENTS } from './calendar/events/eventConstants'
+import { Food, Activity, Transportation, Entertainment, EventItem } from './calendar/events/eventTypes'
+
 interface BudgetItem {
-  name: string;
-  value: number;
-  color: string;
+  name: string
+  value: number
+  color: string
 }
 
 interface BudgetChartProps {
-  initialData?: BudgetItem[];
+  initialData?: BudgetItem[]
 }
 
-const COLORS = ['#8B4513', '#90EE90', '#6495ED', '#4169E1', '#1E90FF', '#D3D3D3', '#FFA500'];
+const COLORS = ['#8B4513', '#90EE90', '#6495ED', '#4169E1', '#1E90FF', '#D3D3D3', '#FFA500']
 
-// This function will categorize the events and return budget items
 const generateBudgetData = (events: EventItem[]): BudgetItem[] => {
-  // Use reduce to categorize the events
   const categorizedEvents = events.reduce(
     (acc, event) => {
-      if (event?.data?.food) acc.foods.push(event);
-      if (event?.data?.activity) acc.activities.push(event);
-      if (event?.data?.transportation) acc.transportations.push(event);
-      if (event?.data?.entertainment) acc.entertainments.push(event);
-      return acc;
+      if (event?.data?.food) acc.foods.push(event)
+      if (event?.data?.activity) acc.activities.push(event)
+      if (event?.data?.transportation) acc.transportations.push(event)
+      if (event?.data?.entertainment) acc.entertainments.push(event)
+      return acc
     },
     {
       foods: [] as EventItem[],
@@ -33,81 +32,74 @@ const generateBudgetData = (events: EventItem[]): BudgetItem[] => {
       transportations: [] as EventItem[],
       entertainments: [] as EventItem[],
     }
-  );
+  )
 
-  // Convert each category into a BudgetItem
-  const budgetData: BudgetItem[] = [];
+  const budgetData: BudgetItem[] = []
 
-  // Map over each category and create the corresponding BudgetItem
   categorizedEvents.foods.forEach((event) => {
-    const food = event.data?.food;
+    const food = event.data?.food
     if (food) {
       budgetData.push({
         name: food.name,
-        value: food.price, // Use price for the value
-        color: COLORS[0], // Assign a color
-      });
+        value: food.price,
+        color: COLORS[0],
+      })
     }
-  });
+  })
 
   categorizedEvents.activities.forEach((event) => {
-    const activity = event.data?.activity;
+    const activity = event.data?.activity
     if (activity) {
       budgetData.push({
         name: activity.name,
-        value: activity.price, // Placeholder value for activity
-        color: COLORS[1], // Assign a color
-      });
+        value: activity.price,
+        color: COLORS[1],
+      })
     }
-  });
+  })
 
   categorizedEvents.transportations.forEach((event) => {
-    const transportation = event.data?.transportation;
+    const transportation = event.data?.transportation
     if (transportation) {
       budgetData.push({
         name: transportation.name,
-        value: transportation.price, // Use price for the value
-        color: COLORS[2], // Assign a color
-      });
+        value: transportation.price,
+        color: COLORS[2],
+      })
     }
-  });
+  })
 
   categorizedEvents.entertainments.forEach((event) => {
-    const entertainment = event.data?.entertainment;
+    const entertainment = event.data?.entertainment
     if (entertainment) {
       budgetData.push({
         name: entertainment.name,
-        value: 100, // Placeholder value for entertainment
-        color: COLORS[3], // Assign a color
-      });
+        value: entertainment.price || 0,
+        color: COLORS[3],
+      })
     }
-  });
+  })
 
-  return budgetData;
-};
+  return budgetData
+}
 
-// Generate the initial data dynamically from the EVENTS array
-const INITIAL_DATA: BudgetItem[] = generateBudgetData(EVENTS);
+const INITIAL_DATA: BudgetItem[] = generateBudgetData(EVENTS)
 
-const renderActiveShape = (props: any, totalBudget: number) => {
-  const RADIAN = Math.PI / 180;
-  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
-  const sin = Math.sin(-RADIAN * midAngle);
-  const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 10) * cos;
-  const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-  const ey = my;
-  const textAnchor = cos >= 0 ? 'start' : 'end';
+const renderActiveShape = (props: any) => {
+  const RADIAN = Math.PI / 180
+  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props
+  const sin = Math.sin(-RADIAN * midAngle)
+  const cos = Math.cos(-RADIAN * midAngle)
+  const sx = cx + (outerRadius + outerRadius * 0.1) * cos
+  const sy = cy + (outerRadius + outerRadius * 0.1) * sin
+  const mx = cx + (outerRadius + outerRadius * 0.3) * cos
+  const my = cy + (outerRadius + outerRadius * 0.3) * sin
+  const ex = mx + (cos >= 0 ? 1 : -1) * 22
+  const ey = my
+  const textAnchor = cos >= 0 ? 'start' : 'end'
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-      
-      {payload.name} {/* Display the name of the budget item being selected in the center */}
-      </text>
       <Sector
         cx={cx}
         cy={cy}
@@ -128,55 +120,75 @@ const renderActiveShape = (props: any, totalBudget: number) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#fff">{`$${value}`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#fff" fontSize="12">
+        {`$${value}`}
+      </text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999" fontSize="10">
         {`(${(percent * 100).toFixed(2)}%)`}
       </text>
     </g>
-  );
-};
+  )
+}
 
 const BudgetChart: React.FC<BudgetChartProps> = ({ initialData = INITIAL_DATA }) => {
-  const [data, setData] = useState<BudgetItem[]>(initialData);
-  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
+  const [data] = useState<BudgetItem[]>(initialData)
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined)
 
-  const onPieEnter = (_: any, index: number) => {
-    setActiveIndex(index);
-  };
+  const onPieEnter = useCallback((_: any, index: number) => {
+    setActiveIndex(index)
+  }, [])
 
-  const totalBudget = data.reduce((sum, item) => sum + item.value, 0);
+  const onPieLeave = useCallback(() => {
+    setActiveIndex(undefined)
+  }, [])
+
+  const totalBudget = data.reduce((sum, item) => sum + item.value, 0)
+
+  const getCenterText = () => {
+    if (activeIndex !== undefined && activeIndex >= 0 && activeIndex < data.length) {
+      return { text: `${data[activeIndex].name}\n$${data[activeIndex].value.toLocaleString()}`, color: data[activeIndex].color }
+    }
+    return { text: `Total:\n$${totalBudget.toLocaleString()}`, color: '#FFFFFF' }
+  }
+
+  const centerText = getCenterText()
 
   return (
-    <div className="min-w-[490px] min-h-[450px]  h-[calc(100vh-15vh)] bg-drk-blue p-5 rounded-xl"> {/* Default: w-500px / h-755px (Min: w-490-500 / h-500px ) */}
-      {/* <h2 className="text-white text-center text-2xl mb-5">Itinerary Budget</h2> Idea: remove itenerary top and default show budget # in middle until clicked up */}
-      {/* <div className="text-white text-center mb">
-        Total Budget: ${totalBudget}
-      </div> */}
-      <ResponsiveContainer>
+    <div className="w-full h-[calc(100vh-15vh)] bg-drk-blue p-5 rounded-xl flex flex-col justify-center mx-auto relative">
+      <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             activeIndex={activeIndex}
-            activeShape={(props: any) => renderActiveShape(props, totalBudget)}
+            activeShape={renderActiveShape}
             data={data}
             cx="50%"
             cy="50%"
-            innerRadius={60}
-            outerRadius={100}
+            innerRadius="30%"
+            outerRadius="60%"
             dataKey="value"
             onMouseEnter={onPieEnter}
+            onMouseLeave={onPieLeave}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color || COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          
-          <Tooltip formatter={(value) => [`$${value}`, 'Value']} />
-          {/* <Legend /> (auto shows values b color, unneeded rn for styling reasons*/}
         </PieChart>
       </ResponsiveContainer>
-
+      <div 
+        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+        style={{ fontSize: `${Math.min(16, 180 / centerText.text.length)}px` }}
+      >
+        {centerText.text.split('\n').map((line, index) => (
+          <span key={index} className="text-center" style={{ color: centerText.color }}>
+            {line}
+          </span>
+        ))}
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default BudgetChart;
+export default BudgetChart
+
+// border border-gray-300 rounded-lg shadow-[5px_5px_5px_rgba(0,0,0,0.1)] make boarder
