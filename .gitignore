@@ -6,4 +6,9 @@
 =======
 .venv/
 .vscode/
+
 >>>>>>> origin/dev
+
+/backend/.env
+frontend/Suni/node_modules
+backend/db.sqlite3

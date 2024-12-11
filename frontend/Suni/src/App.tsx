@@ -4,53 +4,62 @@ import Navbar from './Navbar.tsx'
 //import Form from './Form.tsx'
 //import PopOut from './PopOut.tsx'
 
-//import cloudBackground from './assets/backgrounds/clouds.png';
-import svgCloudBackground from './assets/backgrounds/cloudBackground.svg';
-
 import './global.css'
 
 import QuizPage from './pages/QuizPage.tsx';
 import CalendarPage from './pages/CalendarPage.tsx';
 import BusinessAppPage from './pages/BusinessAppPage.tsx';
 import Home from './pages/Home.tsx';
-
+import AccountPage from './pages/AccountPage.tsx';
+import PersistLogin from "./components/PersistLogin.tsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Layout from './components/Layout.tsx';
+import RequireAuth from './components/RequireAuth.tsx';
 
 function App() {
 
-  let Component
-  switch(window.location.pathname) {
-    case "/":
-      Component = <Home/>
-      break
-    case "/quizPage":
-      Component = <QuizPage/>
-      break
-    case "/calendarPage":
-      Component = <CalendarPage/>
-      break
-    case "/businessAppPage":
-      Component = <BusinessAppPage/>
-      break
-  }
 
   return (
+
     <>
+      <Navbar/>
+      <Routes>
 
-      <Navbar />
-      <section className="background" style={{backgroundImage: `url(${svgCloudBackground})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover"
-          }}>     
-        
-        {Component}
+        <Route element={<Layout />}>
+          <Route element={<PersistLogin/>}>
+                {/* public route*/}
+              <Route path="/" element={<Home/>}/>
+              <Route path="accountPage" element={<AccountPage />}/>
+              <Route path="businessAppPage" element={<BusinessAppPage/>}/>
+              {/* protect these routes */}
+              <Route element={<RequireAuth />}>
 
-      </section>
+                <Route path="quizPage" element={<QuizPage/>}/>
+                <Route path="calendarPage" element={<CalendarPage/>}/>
+              </Route>
+          </Route>
+
+        </Route>
+      </Routes>
     </>
   );
 }
 
-//<Header />
-// <Form />
-//<Footer /> 
+
 
 export default App
+
+
+        /*<section>*/
+        /*  <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen w-full"*/
+        /*       style={{*/
+        /*         backgroundImage: `url(${cloudBackground})`*/
+        /*       }}>*/
+        /*    <div className="relative min-h-screen w-full">*/
+        /*      /!*scrollable content goes here *!/*/
+        /*      <div className="container mx-auto p-4">*/
+        /*        {Component}*/
+        /*      </div>*/
+        /*    </div>*/
+        /*  </div>*/ 
+        /*</section>*/

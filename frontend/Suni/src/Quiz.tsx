@@ -1,7 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import {useState, useEffect, useRef, useContext} from 'react'
 import { MapPin, Plane, Car, PersonStanding, DollarSign, Utensils, Heart, Footprints, Check, MoreHorizontal } from 'lucide-react'
+import useAxiosPrivate from './hooks/useAxiosPrivate.ts';
+
+
 
 interface TripDetails {
   location: string
@@ -33,6 +36,7 @@ const popularDestinations = [
 ]
 
 export default function Component() {
+  const axiosPrivate = useAxiosPrivate();
   const [currentStep, setCurrentStep] = useState(0)
   const [completedSteps, setCompletedSteps] = useState<number[]>([])
   const [tripDetails, setTripDetails] = useState<TripDetails>({
@@ -64,6 +68,8 @@ export default function Component() {
     'Meals',
     'Pick your Trip!'
   ]
+
+
 
   const handleNext = () => {
     setCurrentStep(prev => {
@@ -108,7 +114,28 @@ export default function Component() {
     updateTripDetails({ location: destination })
     setShowSuggestions(false)
   }
+  const submitQuiz = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await axiosPrivate.post("/itinerary/create",
+          {
+            title: tripDetails.location,
+            start_date: tripDetails.dates.arrive,
+            end_date: tripDetails.dates.leave,
+            destination: tripDetails.location,
+            daily_budget: tripDetails.budget.dailyTotal,
+            trip_total: tripDetails.budget.tripTotal,
+            activity_types: tripDetails.activities,
+            meal_types:  tripDetails.meals,
+            interests: tripDetails.interests
+          },
 
+      );
+
+    } catch (err: any) {
+      console.log(err)
+    }
+  };
   const renderQuizContent = () => {
     switch (currentStep) {
       case 0: // Location
@@ -404,7 +431,7 @@ export default function Component() {
 
             {currentStep === steps.length - 1 && (
               <div className="mt-4 text-center">
-                <button className="rounded-lg bg-blue-500 px-8 py-2 font-semibold text-white shadow-md hover:bg-blue-600">
+                <button onClick={submitQuiz} className="rounded-lg bg-blue-500 px-8 py-2 font-semibold text-white shadow-md hover:bg-blue-600">
                   Finish Quiz
                 </button>
               </div>

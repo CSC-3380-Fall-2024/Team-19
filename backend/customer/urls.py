@@ -6,7 +6,7 @@ from .views import *
 
 urlpatterns = [
 
-    path("profile/<int:pk>", RetrieveCustomerInfo.as_view(), name="retrieve_customer_info"),
+    path("profile/info", RetrieveCustomerInfo.as_view(), name="retrieve_customer_info"),
 
 
 
